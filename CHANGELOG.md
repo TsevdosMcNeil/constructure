@@ -12,11 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
- ## [0.6.0] - 2026-04-26
+## [0.6.0] - 2026-04-26
 
 ### Added
 
 - First push to new repository
+- Removed example files
 
 ## [0.5.3] - 2024-09-27
 

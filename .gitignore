@@ -158,10 +158,10 @@ public/1n7h0.php
 
 
 # Ignore docker configurations
-docker/node/Dockerfile
+#docker/node/Dockerfile
 docker/php/Dockerfile
-docker/php/conf.d/custom.ini
-docker/php/conf.d/opcache.ini
+#docker/php/conf.d/custom.ini
+#docker/php/conf.d/opcache.ini
 
 
 docker-compose.override.yml
