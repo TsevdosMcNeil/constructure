@@ -165,7 +165,7 @@ docker/php/Dockerfile
 
 
 docker-compose.override.yml
-docker-compose.yml
+#docker-compose.yml
 Caddyfile
 
 # -------------------------

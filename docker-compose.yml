@@ -11,7 +11,7 @@ services:
     volumes:
       - ./statamic:/var/www/html     # or ./ if your app lives at the root
     # entrypoint: ["sh", "-c"] # override the default node image entrypoint to allow custom commands
-    command: ["tail", "-f", "/dev/null"]   # keep the container running (so we can use docker compose exec isntead of docker compose run )
+    command: ["tail", "-f", "/dev/null"]   # keep the container running (so we can use docker compose exec isntead of docker compose run ). That is useful for local development, but for a remote production server you would normally build assets once and avoid publishing the Vite dev server port. Vite’s dev server is for development, not for serving production traffic
     extra_hosts:
     - "${STATAMIC_HOST}:host-gateway"  # <-- let the container resolve your host's DNS name to the host's IP address, useful for Caddy to proxy to Node
     # optional: run as your host user to avoid root-owned files
@@ -26,10 +26,10 @@ services:
     container_name: ${STATAMIC_CONTAINER:-statamic_app} # optional: name your container for easier access, this is called in Caddyfile
     working_dir: /var/www/html
     volumes:
-      - ./statamic:/var/www/html
+      - ./statamic:/var/www/html  # In production is prefered to buid an immutable app image instead of mounting the live source tree.
       - composer_cache:/tmp/composer
-    environment:
-      PHP_OPCACHE_VALIDATE_TIMESTAMPS: "1"
+    environment: 
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: "${OPCACHE_VALIDATE_TIMESTAMPS}" # "1" is a dev-friendly setting. In production it is commonly set more aggressively for performance -> "0".
     # depends_on:
     #   - redis
 
@@ -38,8 +38,7 @@ services:
     # container_name: statamic_caddy
     ports:
       # - "8080:80"      # optional HTTP
-      #- "${STATAMIC_SSL_PORT}:443"    # host:container, HTTPS matches your Caddyfile (:8446)
-      - "${STATAMIC_SSL_PORT}:${STATAMIC_SSL_PORT}"   # HTTPS on custom port, it should match the Caddyfile port 
+      - "${STATAMIC_SSL_PORT}:${STATAMIC_SSL_PORT}"   # HTTPS on custom port, it should match the Caddyfile port (:8454)
     volumes:
       - ./statamic:/var/www/html:ro # needed for  this line in Caddyfile: root * /var/www/html/public (to serve static assets and read the index.php file, set to read-only for security)
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
