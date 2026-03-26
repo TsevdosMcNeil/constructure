@@ -1,0 +1,41 @@
+{{#
+    @name Burger button
+    @desc A burger button that can be used to open and close a mobile navigation.
+#}}
+
+<!-- /icons/_burger.antlers.html -->
+
+<svg viewBox="0 0 55 55" 
+    xmlns="http://www.w3.org/2000/svg"
+    class="group 
+        ease-in duration-300         
+        {{ svg_class ? svg_class : 'w-[55px] fill-none hover:fill-blue' }}
+    "
+    
+>
+    <circle cx="27.5" 
+        cy="27.5" 
+        r="26.5" 
+        class="{{ circle_class ? circle_class : '' }}" 
+    />
+    <line x1="13" 
+        y1="27" 
+        x2="43" 
+        y2="27" 
+        class="{{ line_class ? line_class : 'stroke-2 group-hover:stroke-white stroke-blue' }}" 
+    />
+    <line x1="13" 
+        y1="36" 
+        x2="43" 
+        y2="36" 
+        class="{{ line_class ? line_class : 'stroke-2 group-hover:stroke-white stroke-blue' }}"
+    />
+    <line x1="13" 
+        y1="18" 
+        x2="43" 
+        y2="18" 
+        class="{{ line_class ? line_class : 'stroke-2 group-hover:stroke-white stroke-blue' }}"
+    />
+</svg> 
+
+<!-- End /icons/_burger.antlers.html -->

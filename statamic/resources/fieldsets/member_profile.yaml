@@ -1,0 +1,36 @@
+title: 'Member Profile'
+fields:
+  -
+    handle: memberprofile_bg_colour
+    field: common.colour
+    config:
+      display: 'Background Colour'
+      width: 25
+  -
+    handle: memberprofile_image
+    field: image.image
+    config:
+      width: 33
+  -
+    handle: memberprofile_hover_image
+    field: common.image
+    config:
+      display: 'Hover Image'
+      width: 33
+  -
+    handle: memberprofile_name
+    field: common.text_basic
+    config:
+      buttons:
+        - bold
+        - italic
+        - color
+        - removeformat
+      display: Name
+      width: 50
+  -
+    handle: memberprofile_role
+    field: common.text_plain
+    config:
+      display: Role
+      width: 50

@@ -1,0 +1,57 @@
+/* Parallax section */
+
+
+:root {
+    --distance-top: 110px;
+    @media (min-width: 768px) {
+        --distance-top: 40px;
+    }
+}
+.wrapperAnimation {
+    min-height: 100vh;
+}
+
+.loadingParallaxSection {
+    display:none;
+    position:absolute;
+    z-index: 12;
+    width: 100%;
+    height: 100vh;
+    /*
+    height: vh(100);
+    padding-top: var(--cd-maingutter-x, 0.75rem);
+    padding-bottom: var(--cd-maingutter-x, 0.75rem);
+    top: calc(-1 * var(--cd-maingutter-x, 0.75rem));
+    background-image: url(../img/loading.gif);
+    */
+    background-position: center;
+    background-size: 88px auto;
+    background-repeat: no-repeat;
+}
+
+.loadingParallaxSection.ready {
+    /*animation-name: fade-out;*/
+    animation-duration: 0.5s;
+    z-index: -10;
+    opacity:0;
+}
+
+
+.wrapper-lottie .content-lottie {
+    background-color:transparent;
+    height:1px;
+    transform-style: preserve-3d;
+    top: var(--distance-top);
+    padding: 0;
+}
+
+.lottieGuide {
+    background-color:transparent;
+    display: block;
+}
+
+
+
+
+
+

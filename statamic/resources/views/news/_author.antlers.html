@@ -1,0 +1,19 @@
+{{#
+    @name Author
+    @desc The Author template.
+#}}
+
+<!-- /news/_author.antlers.html -->
+
+<div class="">
+    {{ title }}
+
+    {{  partial:components/image
+        :image="image"
+        image_class="rounded-full"
+        image_sizes="(min-width: 1280px) 50px, (min-width: 768px) 50vw"
+        figure_class="w-12 mt-4"
+        ratio="1"
+    }}
+</div>
+<!-- End: /news/_author.antlers.html -->

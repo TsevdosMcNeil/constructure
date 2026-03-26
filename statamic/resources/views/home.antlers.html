@@ -1,0 +1,27 @@
+{{#
+    @name Home
+    @desc The home template with an outer wrapper grid as defined in tailwind.config.js. It makes sure all blocks on a page get evenly spaced without having to worry about margins or paddings.
+#}}
+
+<!-- /home.antlers.html -->
+
+<main id="home"
+    class="outer-grid pt-5" 
+>
+
+    <header class="fixed -z-10 flex items-center justify-center" style="top:50%; left:0; transform:translateY(-50%); height:0; width:100%">
+        <div class="fluid-container grid gap-2 md:grid-cols-12">
+            <div class="md:col-span-12">
+                {{ partial:components/logo 
+                    width="100%" 
+                }}
+            </div>
+        </div>
+    </header>
+
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+        
+</main>
+<!-- End: /home.antlers.html -->

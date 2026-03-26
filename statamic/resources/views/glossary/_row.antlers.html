@@ -1,0 +1,59 @@
+{{#
+	@name Glossary Row
+	@desc A row in the glossary table.
+#}}
+
+<!-- /glossary/_row.antlers.html -->
+
+{{# dump #}}
+
+
+
+
+<div class="
+    max-w-none
+    md:col-span-3
+    glossary-row-title
+">
+    {{ partial:typography/p 
+        :content="title" 
+    }}
+</div>
+
+
+<div class="
+    max-w-none
+    md:col-span-3
+    glossary-row-description
+">
+    {{ description }}
+</div>
+
+
+<div class="
+    max-w-none
+    md:col-span-6
+    flex 
+    items-stretch 
+    justify-end
+">
+{{images}}
+
+    {{ partial:components/image
+        class="h-48 w-auto ml-4"  
+    }}
+
+{{/images}}
+
+</div>
+
+<div class="
+    max-w-none
+    md:col-span-12
+">
+    <hr>
+</div>
+
+
+
+<!-- End: /glossary/_row.antlers.html -->

@@ -1,0 +1,78 @@
+{{#
+    @name Mainmenu 
+    @desc The main menu. It's 2 levels deep by default and uses AlpineJS for interactivity.
+#}}
+
+<!-- /navigation/_main_menu.antlers.html -->
+
+<ul class="flex flex-col -mt-[40px]">
+    {{ nav:main 
+        max_depth="2" 
+        include_home="false" 
+    }}
+        <li
+            {{ if children }}
+                x-data="{ subnavOpen: false }"
+                @focusin.window="!$refs.subnav.contains($event.target) && (subnavOpen = false)"
+            {{ /if }}
+            class="leading-nav"
+        >
+            <a
+                class="w-full
+                    group
+                    py-0 
+                    flex items-center 
+                    text-white
+                    text-4xl md:text-9xl 
+                    focus:outline-none focus-visible:ring-2 ring-primary"
+                {{ if children }}
+                    href="#"
+                    @click.prevent="subnavOpen = !subnavOpen"
+                    @click.outside="subnavOpen = false"
+                    :aria-label="subnavOpen
+                        ? '{{ trans:strings.subnav_close }}'
+                        : '{{ trans:strings.subnav_open }}'"
+                    :aria-expanded="subnavOpen"
+                {{ else }}
+                    href="{{ url }}"
+                {{ /if }}
+            >
+                <span class="m-0 p-0
+                    lowercase
+                ">{{ title  }}</span>
+                <span class="absolute top-0 left-0
+                    opacity-0 group-hover:opacity-100 
+                    transition-opacity duration-500
+                    m-0 p-0
+                    lowercase
+                ">{{ hover_word }}</span>
+                {{ if children }}
+                    <div :class="{ 'scale-y-[-1]': subnavOpen }" class="motion-safe:transition-transform">
+                        {{ svg:chevron_down class="w-2 ml-1 overflow-visible stroke-current text-neutral" aria-hidden="true" }}
+                    </div>
+                {{ /if }}
+            </a>
+            {{ if children }}
+                <ul
+                    x-show="subnavOpen"
+                    x-ref="subnav"
+                    class="flex flex-col items-stretch space-y-2 !overflow-x-visible"
+                    x-collapse
+                >
+                    {{ children }}
+                        <li class="{{ first ?= 'mt-2' }}">
+                            <a
+                                class="block py-2 whitespace-nowrap text-4xl md:text-8xl hover:text-primary {{ is_current || is_parent ? 'text-primary' : 'text-neutral' }} focus:outline-none focus-visible:ring-2 ring-primary"
+                                href="{{ url }}">
+                                {{ title | lower }}
+                            </a>
+                        </li>
+                    {{ /children }}
+                </ul>
+            {{ /if }}
+        </li>
+    {{ /nav:main }}
+</ul>
+
+
+<!-- End: /navigation/_main_menu.antlers.html -->

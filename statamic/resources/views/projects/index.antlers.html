@@ -1,0 +1,38 @@
+{{#
+    @name Projects index
+    @desc The Projects index template.
+#}}
+
+<!-- /projects/index.antlers.html -->
+{{ livewire:styles }}
+<main id="projects"
+    class="outer-grid 
+        livewirepage
+    " 
+>
+
+    {{ header_class = "text-left absolute" }}
+    {{ if header_colour }}
+        {{ header_class .= " text-" + header_colour  }}
+    {{/if}}
+    <div class="fluid-container grid gap-2 md:grid-cols-12">
+        <header class="md:col-span-5 md:col-start-8">
+            {{ partial:typography/h1 
+                :content="broken_title ?? title" 
+                :class="header_class" 
+            }}
+        </header>
+    </div>
+
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+
+
+    {{ section:index_content }}
+        {{ livewire:projects.show-projects }}
+    {{ /section:index_content }}
+
+</main>
+<!-- End: /projects/index.antlers.html -->
+{{ livewire:scriptConfig }}

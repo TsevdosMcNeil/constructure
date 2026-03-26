@@ -1,0 +1,50 @@
+{{#
+    @name News index
+    @desc The News index template.
+#}}
+
+<!-- /news/index.antlers.html -->
+<main id="news"
+    class="outer-grid" 
+>
+
+    {{ header_class = "text-left" }}
+    {{ if header_colour }}
+        {{ header_class .= " text-" + header_colour  }}
+    {{/if}}
+    <div class="fluid-container grid gap-2 md:grid-cols-12">
+        <header class="md:col-span-6 md:col-start-8">
+            {{ partial:typography/h1 
+                :content="broken_title ?? title" 
+                :class="header_class" 
+            }}
+        </header>
+    </div>
+
+    
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+</main>
+<!-- End: /news/index.antlers.html -->
+
+{{ section:index_content }}
+    <!-- /news/index.antlers.html -->
+    <div class="fluid-container grid md:grid-cols-12 gap-8">
+
+        {{ collection:news sort="date:desc" paginate="true" limit="12" as="items" }}
+            {{ unless no_results }}
+                {{ items }}
+                    {{ partial:components/news_item class="md:col-span-4" }}
+                {{ /items }}
+            {{ else }}
+                <div class="md:col-span-6">
+                    {{ trans:strings.no_results }}
+                </div>
+            {{ /unless }}
+
+            {{ partial:statamic-peak-tools::components/pagination class="md:col-span-12" }}
+        {{ /collection:news }}
+    </div>
+    <!-- End: /news/index.antlers.html -->
+{{ /section:index_content }}

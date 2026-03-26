@@ -1,0 +1,86 @@
+{{#
+	@name Glossary Table
+	@desc Section of the glossary
+#}}
+
+<!-- /glossary/_table.antlers.html -->
+
+
+
+{{# dump #}}
+
+{{ xid = id }}
+{{ if title  }}
+    {{ xid =  title | slugify | replace('-', '') }}
+{{ /if }}
+
+
+<section id="{{ xid }}" 
+        x-data="{ 
+            shown_glotable_{{ xid }}: false, 
+            load_section: 'true' 
+        }" 
+        x-intersect.once="shown_glotable_{{ xid }} = true;"
+        class="fluid-container grid gap-4 md:grid-cols-12 py-0"
+        :class="shown_glotable_{{ xid }} ? 'animate-appearsin opacity-0' : '';" 
+>
+
+    <div class="
+        max-w-none
+        md:col-span-3
+        glossary-table-title
+    ">
+        {{ partial:typography/h2 
+            :content="title" 
+            color="text-blue"
+            class="uppercase"        
+        }}
+    </div>
+
+    {{ if loopnumber === 0  }}
+    <div class="
+        max-w-none
+        md:col-span-3
+        flex
+    ">
+        {{ partial:typography/p 
+            content="Description" 
+            class="self-end"  
+        }}
+    </div>
+
+    <div class="
+        max-w-none
+        md:col-span-6
+        flex
+        justify-end
+    ">
+        {{ partial:typography/p 
+            content="Images" 
+            class="self-end"  
+        }}
+    </div>
+    {{ /if }}
+
+    <div class="
+        max-w-none
+        md:col-span-12
+    ">
+        <hr>
+    </div>
+
+
+    {{ rows }}
+        
+        {{ partial:glossary/row 
+            :title="title" 
+            :description="description" 
+            :images="images" 
+        }}
+
+    {{ /rows }}
+
+
+</section>
+    
+<!-- End: /glossary/_table.antlers.html -->

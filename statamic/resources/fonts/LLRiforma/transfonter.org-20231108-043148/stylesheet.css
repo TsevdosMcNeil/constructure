@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'Riforma LL';
+    src: url('RiformaLL-Regular.eot');
+    src: url('RiformaLL-Regular.eot?#iefix') format('embedded-opentype'),
+        url('RiformaLL-Regular.woff2') format('woff2'),
+        url('RiformaLL-Regular.woff') format('woff'),
+        url('RiformaLL-Regular.svg#RiformaLL-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Constructure Sans';
+    src: url('ConstructureSans-Regular.eot');
+    src: url('ConstructureSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('ConstructureSans-Regular.woff2') format('woff2'),
+        url('ConstructureSans-Regular.woff') format('woff'),
+        url('ConstructureSans-Regular.svg#ConstructureSans-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

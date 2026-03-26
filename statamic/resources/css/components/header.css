@@ -1,0 +1,41 @@
+/* Header */
+
+
+
+@layer components {
+
+    .mainmenu li,
+    .mainmenu.visible .submenu,
+    .mainmenu .logo,
+    .mainmenu .navigation-bottom {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .mainmenu.visible {
+        @apply animate-menuin;
+    }
+    .mainmenu.invisible {
+        @apply animate-menuout;
+    }
+    .mainmenu.visible li,
+    .mainmenu.visible .submenu,
+    .mainmenu .logo,
+    .mainmenu.visible .navigation-bottom {
+        @apply animate-fadeandmovein;
+    }
+    .mainmenu.visible li:nth-child(2) { animation-delay: .3s }
+    .mainmenu.visible li:nth-child(3) { animation-delay: .6s }
+    .mainmenu.visible li:nth-child(4) { animation-delay: .9s }
+    .mainmenu.visible li:nth-child(5) { animation-delay: 1.2s }
+    .mainmenu.visible li:nth-child(6) { animation-delay: 1.5s }
+    .mainmenu.visible li:nth-child(7) { animation-delay: 1.8s }
+    .mainmenu.visible li:nth-child(8) { animation-delay: 2.1s }
+
+    .mainmenu.visible .submenu { animation-delay: 1.2s }
+    .mainmenu .logo { animation-delay: 1.5s }
+    .mainmenu.visible .navigation-bottom { animation-delay: 1.8s }
+
+}
+
+

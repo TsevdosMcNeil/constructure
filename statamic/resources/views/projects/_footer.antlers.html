@@ -1,0 +1,258 @@
+{{#
+    @name Projects Footer
+    @desc The default footer for projects pages.
+#}}
+
+<!-- /projects/_footer.antlers.html -->
+
+{{# footer | dump #}}
+<footer id="projects_footer"
+    x-data="initFooter()"
+    {{ if !live_preview }} 
+        @click="go_to_page()"
+        @touchmove="go_to_page()"
+    {{ /if }}
+    x-intersect.threshold.90="footer_class = 'footerup'"
+    x-intersect:leave.margin.-30%="change_footer_class()"
+    class="footer_collection footer_projects h-120 " 
+    :class="footer_class"
+>
+<div class="footer-wrapper 
+        fixed 
+        pt-0 
+        z-30
+        w-full
+        bg-orange
+        before:absolute
+        before:top-0
+        before:left-0
+        before:w-full
+        before:h-full
+        before:z-40
+        before:bg-opacity-100
+    "
+    {{ if !live_preview }} 
+        @wheel="if($event.deltaY > 0) { 
+            //console.log($event.deltaY);
+            load_new_page(); 
+        }"
+        @touchmove="load_new_page()"
+    {{ /if }}
+>
+
+    {{ get_content from="/projects" }}
+
+            {{ header_class = "text-left absolute" }}
+            {{ if header_colour }}
+                {{ header_class .= " text-" + header_colour  }}
+            {{/if}}
+            <div class="fluid-container grid gap-2 md:grid-cols-12">
+                <header class="md:col-span-5 md:col-start-8">
+                    {{ partial:typography/h1 
+                        :content="broken_title ?? title" 
+                        :class="header_class" 
+                    }}
+                </header>
+            </div>
+
+            <section id="" 
+                class="fluid-container grid gap-0 md:grid-cols-12 pt-8"
+            >
+
+                {{ taxonomies = ['sectors', 'expertises'] }}
+                {{ wrap_class = "w-1/{{ taxonomies | length }} group" }}
+
+                <div class="md:col-span-3 md:col-start-2" >
+                    <div class="w-full flex">
+
+                        {{ foreach:taxonomies }}
+                            <div class="{{ wrap_class}}">
+                                <button class="text-white" >
+                                    {{ value | title  }}
+                                </button> 
+                            </div>  
+                        {{ /foreach:taxonomies }}
+                    </div>
+
+                </div>
+                <div class="md:col-span-1" >
+                    <ul class="flex items-stretch justify-between max-w-[80px]">
+                        <li role="button" 
+                            class="cursor-pointer text-white"
+                            >Grid</li>
+                        <li role="button" 
+                            class="cursor-pointer text-primary "
+                        >List</li>
+                    </ul>
+                </div>
+            </section>
+
+            {{ page_builder scope="block" }}
+                {{ partial src="page_builder/{type}" }}
+            {{ /page_builder }}
+
+    {{ /get_content }}
+
+    {{ section:index_content }}
+
+        <div class="fluid-container 
+            grid md:grid-cols-12 
+            gap-0 
+            pt-8 md:pt-40
+        ">
+
+            {{ collection:projects 
+                sort="order" 
+                paginate="false" 
+                limit="4" 
+                as="items" 
+            }}
+                {{ unless no_results }}
+                    
+                    {{ int =  1 }}
+
+                    {{ items }}
+
+                        {{ num_columns_class = "md:col-span-3"}}
+                        {{ first_position = false }}
+
+                        {{if index == 0}}
+                            {{ num_columns_class = "md:col-span-8 md:pb-32"}}
+                            {{ first_position = true }}
+                        {{elseif
+                            index%7 == 1
+                        }}
+                            {{ num_columns_class = "md:col-span-3 md:col-start-1"}}
+                        {{elseif
+                            index%7 == 2
+                        }}
+                            {{ num_columns_class = "md:col-span-5 md:col-start-8 md:pb-0"}}
+                        {{elseif
+                            index%7 == 3
+                        }}
+                            {{ num_columns_class = "md:col-span-5 md:col-start-3 md:pb-24"}}
+
+                        {{/if}}
+
+                        {{ grid_caption_floating = false }}
+                        {{ if grid_caption_hposition == 'below' }}
+                            {{ grid_caption_floating = true }}
+                        {{/if}}
+
+                        {{ location_title = '' }}
+                        {{ locations }}
+                            {{ location_title += title + ',' }}
+                        {{ /locations }}
+                        {{ location_title = location_title | substr(0, -1) }}
+
+                        {{ grid_caption = '
+                            <p>
+                                <span class="text-white">'+ title + '</span><br/>
+                                <span>'+ location_title + '</span><br/>
+                                <span>'+ arquitect + '</span>
+                            </p>' }}
+
+
+                        <div class="
+                                column
+                                max-w-none
+                                {{ num_columns_class }}
+                            "
+                        >
+                            {{ partial:components/card
+                                card_class="max-w-none" 
+                                :card_class="card_class" 
+                                :card_file_type="grid_file_type"
+                                :card_image="grid_image"
+                                :card_hover_image="grid_hover_image"
+                                :card_orientation="grid_orientation"
+                                card_size="xl"
+                                :card_embed_video="grid_embed_video"
+                                :card_caption_hposition="grid_caption_hposition"
+                                :card_caption_vposition="grid_caption_vposition"
+                                :card_caption_floating="grid_caption_floating"
+                                :card_link="url"
+                                :card_slug="slug"
+                                :card_caption="grid_caption"
+                            }}
+                        </div>
+
+                        {{ int = int + 1 }}
+
+                    {{ /items }}
+
+                {{ else }}
+                    <div class="md:col-span-6">
+                        {{ trans:strings.no_results }}
+                    </div>
+                {{ /unless }}
+
+            {{ /collection:projects }}
+        </div>
+        <!-- End: /news/index.antlers.html -->
+    {{ /section:index_content }}
+
+    <script>
+
+        function initFooter() {
+
+            return {    
+                d :             document.documentElement,
+                offset:         0,
+                height:         0,
+                bottom_reached: false, 
+                onwheel_active: true, 
+                footer_class:  'opacity-100', 
+                next_url:      '/projects', 
+
+                change_footer_class() {
+                    //console.log('change_footer_class')
+                    if(this.footer_class ==  'footerup') {
+                        this.footer_class = 'footerdown'
+                    }
+                    //console.log('footer_class: ' + this.footer_class)
+                },
+                go_to_page() {
+                    //console.log('go_to_page ' + this.next_url);
+                    this.onwheel_active = false;
+                    this.footer_class +=  ' active';
+                    window.location.href = this.next_url
+
+                },
+                load_new_page() {
+                    //console.log('load_new_page');
+                    this.offset = this.d.scrollTop + window.innerHeight;
+                    this.height = this.d.offsetHeight;
+                    if (this.offset === this.height) {
+                        //console.log('At the bottom');
+                        //console.log('this.footer_class '+this.footer_class );
+                        //console.log('this.bottom_reached '+this.bottom_reached );
+                        //console.log('this.onwheel_active '+this.onwheel_active );
+                        setTimeout( 
+                            () => {
+                                if(this.footer_class ==  'footerup') {
+                                    this.bottom_reached = true;
+                                }
+                            }, 
+                            1800
+                        )
+                        if( this.bottom_reached === true
+                            && this.onwheel_active === true
+                        ) {
+                            //console.log('trigger go_to_page()');
+                            this.go_to_page();
+                            this.onwheel_active = false;
+
+                        }
+                    } else {
+                        this.bottom_reached = false;
+                    }
+                }
+            };
+        }
+
+    </script>
+
+</div>
+</footer>
+<!-- End: /projects/_footer.antlers.html -->

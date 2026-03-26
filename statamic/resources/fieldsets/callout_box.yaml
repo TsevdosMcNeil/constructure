@@ -1,0 +1,56 @@
+title: 'Callout Box'
+fields:
+  -
+    import: advanced_horizontal_rule
+  -
+    handle: content_position
+    field:
+      options:
+        left: Left
+        right: Right
+      type: button_group
+      display: 'Content Position'
+      icon: button_group
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: content_width
+    field:
+      options:
+        - 25
+        - 33
+        - 50
+        - 66
+        - 75
+        - 100
+      default: '33'
+      type: width
+      display: 'Content Width'
+      icon: width
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: content
+    field: common.text_rich
+    config:
+      buttons:
+        - h2
+        - h3
+        - bold
+        - italic
+        - small
+        - unorderedlist
+        - orderedlist
+        - color
+        - removeformat
+        - quote
+        - anchor
+      display: Content

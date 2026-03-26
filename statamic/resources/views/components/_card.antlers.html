@@ -1,0 +1,110 @@
+{{#
+    @name Card
+    @desc A card component for news index. A sizeable image rendered in a figure tag with caption that can be placed next to the image or below it.
+    @param card_size             md | lg | xl
+    @param card_image            url of the image file
+    @param card_orientation      default | portrait | landscape
+    @param card_link             url of the link
+
+    @set page.article.new_card
+#}}
+
+<!-- /components/_card.antlers.html -->
+
+{{ card_class =  'card' }}
+{{ if card_caption_hposition == 'prev' 
+    || card_caption_hposition == 'next' 
+}}
+    {{ card_class .=  ' flex' }}
+{{ /if }}
+
+{{ if card_file_type == 'video' }}
+    {{ card_image = false }}
+{{ elseif card_file_type == 'image' }}
+    {{ card_embed_video = false }}
+{{ /if }}
+
+
+<a href="{{ card_link }}"
+    class="group hover:text-primary"
+>
+
+<article id="{{ card_slug }}" 
+    x-data="{ shown_card : false }" 
+    x-intersect.once="shown_card = true;"
+    class="opacity-0 {{ card_class }}"
+    :class="shown_card ? 'animate-appearsin' : ''" 
+>
+
+
+    <div class="relative
+            {{ switch(
+                (card_caption_hposition == 'prev') => 'order-last w-full',
+                (card_caption_hposition == 'next') => 'w-full',
+                (card_caption_hposition == 'below') => '',
+                () => ''
+            ) }}"
+    >
+    {{ if card_image }}
+        {{  partial:components/image
+            :image="card_image"
+            :orientation="card_orientation"
+            :figure_class="card_hover_image ? 'group-hover:opacity-0 transition-opacity' : ''"
+            caption=""
+        }}
+        {{ if card_hover_image }}
+            {{  partial:components/image
+                :image="card_hover_image"
+                :orientation="card_orientation"
+                figure_class="!absolute 
+                    top-0 left-0
+                    opacity-0 
+                    group-hover:opacity-100
+                    transition-opacity"
+            }}
+        {{/if}}
+    {{ elseif card_embed_video }}
+        {{  partial:components/video 
+            :video_url="card_embed_video" 
+            video_autoplay="true"
+            video_loop="true"
+            wrapper_class="mb-3"
+        }}
+    {{ /if }}
+    </div>
+
+    <div class="card_caption 
+        {{ switch(
+            (card_caption_hposition == 'prev') => 'order-first pr-4 flex',
+            (card_caption_hposition == 'next') => 'pl-4 flex',
+            (card_caption_hposition == 'below') => 'relative',
+            () => ''
+        ) }}
+        {{ switch(
+            (card_caption_vposition == 'top') => 'items-start',
+            (card_caption_vposition == 'bottom') => 'items-end',
+            () => ''
+        ) }}
+    ">
+        <div class="
+            card_caption_content  
+            whitespace-nowrap 
+            {{ if card_caption_hposition == 'below' }}
+                pt-4
+                {{ if card_caption_floating }}
+                    absolute
+                {{/if}}
+            {{/if}}
+            ">
+            {{ partial src="components/text"
+                :text="card_caption"
+            }}
+        </div>
+    </div>
+
+</article>
+
+ </a>
+
+
+<!-- End: /components/_card.antlers.html -->

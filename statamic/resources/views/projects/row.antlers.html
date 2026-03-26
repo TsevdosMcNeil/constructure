@@ -1,0 +1,55 @@
+{{#
+    @name Projects row
+    @desc A row of a project table. 
+#}}
+
+<!-- /projects/row.antlers.html -->
+<tr id="{{ row_slug }}" 
+    x-data="{ shown_row : false }" 
+    x-intersect.once="shown_row = true;"
+    class="row  
+        group
+        border-b border-grey 
+        opacity-0   
+        cursor-pointer
+        {{ row_class }} 
+    "
+    :class="shown_row ? 'animate-appearsin' : ''" 
+>
+    <td class="py-5">
+        <a href="{{ row_link }}">
+        {{ if row_broken_title }}
+            <h3 class="relative">
+                <span class="text-primary 
+                    hover:topacity-0 
+                    group-hover:opacity-0
+                ">{{ row_broken_title }}</span>
+                <span class="text-blue 
+                    absolute w-full
+                    top-0 left-0
+                    opacity-0 hover:opacity-100 group-hover:opacity-100
+                ">{{ row_title }}</span>
+            </h3>
+        {{ else }}
+            {{ partial:typography/h3 
+                :content="row_title" 
+                class="text-primary hover:text-blue group-hover:text-blue"
+            }}
+        {{ /if }}
+        </a>
+    </td>
+    <td><a href="{{ row_link }}">{{ partial:typography/p 
+        :content="row_location" 
+    }}</a></td>
+    <td><a href="{{ row_link }}">{{ partial:typography/p 
+        :content="row_architect" 
+    }}</a></td>
+    <td><a href="{{ row_link }}">{{ partial:typography/p 
+        :content="row_sector" 
+    }}</a></td>
+    <td><a href="{{ row_link }}">{{ partial:typography/p 
+        :content="row_year" 
+    }}</a></td>
+</tr>
+
+<!-- End: /projects/row.antlers.html -->

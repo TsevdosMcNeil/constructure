@@ -1,0 +1,494 @@
+{{#
+	@name Section
+	@desc A column repeater block to be included in the page builder
+    @set page.page_builder.section    
+#}}
+
+<!-- /page_builder/_section.antlers.html -->
+
+{{ section_style =  '' }}
+{{ section_class =  'fluid-container grid gap-4 md:grid-cols-12 pt-5 pb-5 ' }}
+
+
+
+{{ if screen_minimum_height }}
+    {{ section_class .=  ' md:min-h-screen' }}
+{{ /if }}
+
+{{ if remove_columns_gap}}
+    {{ section_class .=  ' md:gap-0' }}
+{{ /if }}
+
+
+{{ if top_padding != -1 }}
+    {{ section_class .=  ' md:pt-' + (top_padding*4) }}
+{{ /if }}
+
+
+{{ if bottom_padding != -1 }}
+    {{ section_class .= ' md:pb-' + (bottom_padding*4) }}
+{{ /if }}
+
+
+{{ if left_padding != -1 }}
+    {{ section_class .=  ' md:pl-' + (left_padding*4) }}
+{{ /if }}
+
+
+{{ if right_padding != -1 }}
+    {{ section_class .= ' md:pr-' + (right_padding*4) }}
+{{ /if }}
+
+
+{{ if top_border }}
+    {{ section_class .=  ' border-black border-t' }}
+{{ /if }}
+
+{{# Mentioning the exact class names in comments, its styles will be compiled. #}}
+{{# text-black text-white text-lightblue text-blue text-darkblue text-pink text-yellow text-orange text-green text-grey #}}
+{{ if text_colour }}
+    {{ section_class .=  ' text-' + text_colour }}
+{{ /if }}
+
+
+{{# bg-black bg-darkgrey bg-blue bg-green bg-grey bg-orange bg-white #}}
+{{ if background_colour }}
+    {{ section_class .=  ' bg-' + background_colour }}
+{{ /if }}
+
+{{ if bg_image }}
+    {{ section_class  .=  ' bg-local bg-no-repeat bg-cover' }}
+    {{ section_style   =  ' style="background-image: url('+{{bg_image}}+')"' }}
+{{ /if }}
+
+
+{{# dump #}}
+
+{{ lenis_elements = false }}
+
+{{ xid =  id }}
+{{ if slug  }}
+    {{ xid =  slug | replace('-', '') }}
+{{ /if }}
+
+
+{{ if section_link }}
+<a href="{{ section_link }}" 
+    class="block"
+>
+{{ else}}
+<div class="block">
+{{ /if }}
+
+
+<section id="{{ xid }}" 
+        x-data="{ 
+            shown_{{ xid }}: false, 
+            load_section: {{ loading_effect ? 'true' : 'false' }},
+            hasCarousel: false
+        }" 
+        x-init="
+            hasCarousel = $el.querySelector('.carousel') !== null;
+            //console.log('hasCarousel '+hasCarousel);
+        "
+        x-intersect.once="shown_{{ xid }} = true;"
+        {{section_style}}
+        class="{{section_class}}"
+        :class="
+        shown_{{ xid }} && load_section ? 'animate-appearsin opacity-0' : '';" 
+>
+    {{ if parallax_section }}
+
+        {{# https://1902.studio/journal/use-lottie-animations-with-alpine-and-statamic #}}
+        {{# https://assets2.lottiefiles.com/packages/lf20_4fET62.json #}}
+        {{# https://assets2.lottiefiles.com/packages/lf20_i9mxcD.json #}}
+        
+
+        {{ guideHeight = 300  }}
+        {{ if number_of_frames && number_of_frames  <= 300 }}
+            {{ guideHeight = number_of_frames }}
+        {{ /if }}
+
+        {{ lenisFrames = 100 }}
+        {{ if number_of_frames && number_of_frames  <= 60 }}
+            {{ lenisFrames = number_of_frames }}
+        {{ /if }}
+
+
+    <div class="wrapperAnimation relative col-span-12">
+
+        <div id="loading_{{ xid }}" class="loadingParallaxSection"></div>
+
+        <div id="wrapperLottie_{{ xid }}" 
+            class="wrapper-lottie w-full"
+        >
+            <div x-data="{ animation_{{ xid }}: '' }"
+                class="content-lottie 
+                    sticky 
+                    fluid-container 
+                    grid gap-4 md:grid-cols-12
+                "
+                x-init="loadLenis_{{ xid }}();"
+            >
+                {{ if json_lottie_file && number_of_frames }}
+                <div class="wrapper-lottie_player col-span-12 absolute -z-10 w-full">
+                    <figure class="m-auto w-[1024px]"
+
+                        x-init="
+                            //console.log('lottieGuide_{{ xid }}');
+                            animation_{{ xid }} = lottie.loadAnimation({
+                                container: $el,
+                                renderer: 'svg',
+                                autoplay: false,
+                                loop: true,
+                                path: '{{json_lottie_file}}'
+                            }),
+                    
+                            create({
+                                mode: 'scroll',
+                                player: animation_{{ xid }},
+                                container: '#lottieGuide_{{ xid }}',
+                                actions: [
+                                    {
+                                        visibility: [0, 1],
+                                        type: 'seek',
+                                        frames: [0, {{ number_of_frames - 1 }}],
+                                    },
+                                ],
+                            });
+                        "
+                        aria-hidden="true"
+                    >
+                    </figure>
+                </div>
+                {{ /if }}
+    {{ /if }}
+
+            {{ columns }}
+
+                {{# column_class .=  ' border border-black'  #}}
+                
+                {{ if size }}
+                    {{ column_class .=  ' md:col-span-' + size }}
+                {{ /if }}
+
+                {{ if set_horizontal_position && horizontal_position > 0 }}
+                    {{ column_class .=  ' md:col-start-' + horizontal_position }}
+                {{ /if }}
+
+                {{ if set_span_rows && span_rows > 0 }}
+                    {{ column_class .=  ' md:row-span-' + span_rows }}
+                {{ /if }}
+
+
+                {{ if vertical_alignment == 'middle' }}
+                    {{ column_class .=  ' grid items-center' }}
+                {{ /if }}
+                {{ if vertical_alignment == 'bottom' }}
+                    {{ column_class .= ' grid items-end' }}
+                {{ /if }}
+
+                {{ if top_padding != -1 }}
+                    {{ column_class .=  ' md:pt-' + (top_padding*4) }}
+                {{ /if }}
+
+                {{ if right_padding != -1 }}
+                    {{ column_class .=  ' md:pr-' + (right_padding*4) }}
+                {{ /if }}
+
+                {{ if bottom_padding != -1 }}
+                    {{ column_class .=  ' md:pb-' + (bottom_padding*4) }}
+                {{ /if }}
+
+                {{ if left_padding != -1 }}
+                    {{ column_class .=  ' md:pl-' + (left_padding*4) }}
+                {{ /if }}
+
+
+                {{ if lenis_column }}
+                   {{ lenis_elements = true }}
+                    {{ column_class .=  ' lenis_column absolute min-h-screen'  }}
+                {{ /if }}
+
+                
+                    {{ partial:typography/article
+                        as="div" 
+                        :class="column_class"                         
+                    }}
+
+                    {{ if lenis_column }}
+                        <div class="leniscnf"
+                            data-startframe='{{ lenis_start_frame }}'
+                            data-starteffect='{{ lenis_start_effect }}{{value + "-"}}{{ /lenis_start_effect }}' 
+                            data-endframe='{{ lenis_end_frame }}'
+                            data-endeffect='{{ lenis_end_effect }}{{value + "-"}}{{ /lenis_end_effect }}' 
+                        ></div>
+                    {{ /if }}
+
+                        {{ column_article }}
+                            {{ partial src="components/{type}" }}
+                        {{ /column_article }}
+                    {{ /partial:typography/article }}
+
+            {{ /columns }}
+
+    {{ if parallax_section }}
+    
+                
+
+            </div>
+
+            <div id="lottieGuide_{{ xid }}" 
+                class="lottieGuide"
+                style="
+                    height: calc(1vh * {{ guideHeight }} ); 
+                    margin-top:100vh;
+                    "
+            ></div>  
+
+        </div>
+
+        <div id="wrapperAlternative_{{ xid }}" 
+            class="wrapper-alternative"
+            style="display:none"
+        >   
+        </div>
+    </div> <!-- End: /wrapperAnimation -->
+
+    <div class="lottieBottom h-[100vh]"></div>
+    {{ /if }}
+
+</section>
+    
+{{ if section_link }}
+</a>
+{{ else}}
+</div>
+{{ /if }}
+
+
+
+{{# https://github.com/studio-freight/lenis #}}
+{{ if lenis_elements }}
+<script>
+
+     /**
+     *  Triggers  Lenis
+     *
+     * @return void
+     */
+    function loadLenis_{{ xid }}() {
+
+        
+        //console.log('loadLenis_{{ xid }}');
+
+        let wrapperLottie_{{ xid }}      = document.getElementById("wrapperLottie_{{ xid }}");
+        const wrapperLottieTop_{{ xid }} = window.pageYOffset + wrapperLottie_{{ xid }}.getBoundingClientRect().top;
+        //console.log(wrapperLottieTop_{{ xid }});
+
+        let frameoffset_{{ xid }} = Math.round(wrapperLottieTop_{{ xid }}/100) + 5; 
+        let transdist_{{ xid }}   = '10rem';
+        const groups_{{ xid }}    = [];
+        //console.log('frameoffset_{{ xid }}: ' +frameoffset_{{ xid }});
+        
+        
+        const lenis_{{ xid }} = new Lenis({ 
+            smooth: false,
+            smoothWheel: false,
+            smoothTouch: false,
+        })
+
+
+        function raf(time) {
+            lenis_{{ xid }}.raf(time)
+            requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf);
+
+
+
+        let lenisGroup_{{ xid }} = document.getElementById('{{ xid }}').querySelectorAll('.lenis_column');
+        Array.from(lenisGroup_{{ xid }}).forEach((element, index) => {
+
+            //console.log(' element_{{ xid }}: '+index);
+
+            let lenisobj   = {}
+            let transdist  = transdist_{{ xid }};
+
+            const leniscnf = element.getElementsByClassName('leniscnf')[0];
+            lenisobj.startframe  = leniscnf.getAttribute('data-startframe');
+            lenisobj.starteffect = leniscnf.getAttribute('data-starteffect');
+            lenisobj.endframe    = leniscnf.getAttribute('data-endframe');
+            lenisobj.endeffect   = leniscnf.getAttribute('data-endeffect');
+            //lenisobj.element = this.getElementsByClassName('wp-block-column > *:not(.wp-block-spacer)')
+            lenisobj.element = element;
+            
+
+            lenisobj.element.style.zIndex = 9;
+            //lenisobj.element.style = addStyles(lenisobj.element.style, lenisobj.starteffect);
+            
+            if(lenisobj.starteffect.includes('fade')) {
+                //The start effect is fade, so the default opacity must be 0
+                lenisobj.element.style.opacity = 0;
+            }
+            if(lenisobj.starteffect.includes('scale')) {
+                //The start effect is scale, so the default scale must be 0
+                lenisobj.element.style.transform = `scale(0)`;
+            }
+            if(lenisobj.starteffect.includes('translationLeftRight')) {
+                //The start effect is translationX, so the default X position must be +transdist
+                lenisobj.element.style.transform = `translateX(${transdist})`;
+            }
+            if(lenisobj.starteffect.includes('translationRightLeft')) {
+                //The start effect is translationX, so the default X position must be -transdist
+                lenisobj.element.style.transform = `translateX(-${transdist})`;
+            }
+            if(lenisobj.starteffect.includes('translationUpDown')) {
+                //The start effect is translationX, so the default Y position must be +transdist
+                lenisobj.element.style.transform = `translateY(${transdist})`;
+            }
+            if(lenisobj.starteffect.includes('translationDownUp')) {
+                //The start effect is translationX, so the default Y position must be -transdist
+                lenisobj.element.style.transform = `translateY(-${transdist})`;
+            }
+            
+            //console.log(lenisobj);
+
+            groups_{{ xid }}.push(lenisobj);
+        });
+
+        /*
+        lenis_{{ xid }}.on('scroll', (e) => {
+            console.log(e)
+        })
+        */
+
+        lenis_{{ xid }}.on("scroll", ({ scroll }) => {
+
+            let speed = 1.5;
+            let frameNumber = ( {{ lenisFrames }} * scroll * speed)/wrapperLottie_{{ xid }}.offsetHeight;
+
+            groups_{{ xid }}.forEach(function(item, index, arr) {
+
+                let increaseStart = [],  
+                    decreaseStart = [], 
+                    increaseEnd   = [],  
+                    decreaseEnd   = [],
+                    frameoffset   = frameoffset_{{ xid }};
+                    transdist     = transdist_{{ xid }};
+                
+                const startoffset = +item.startframe + +frameoffset;
+                const endoffset   = +item.endframe + +frameoffset;
+
+                if( '{{ xid }}' == 'llkq9mm6_b') {
+                    console.log('lenis_{{ xid }} ' );
+                    console.log('scroll: '+ scroll);
+                    console.log('frameNumber: '+ frameNumber);
+                    console.log('startoffset: '+startoffset );
+                    console.log('endoffset: '+endoffset );
+                    console.log('frameoffset: '+ frameoffset );
+                    console.log('wrapperLottie_{{ xid }}.offsetHeight: '+wrapperLottie_{{ xid }}.offsetHeight );
+                }
+
+                if( frameNumber <= startoffset ) {
+                    //console.log(' frameNumber <= startoffset ');
+                    item.element.style.zIndex = 9;
+
+                    //item.element.style = addStyles(item.element.style, item.starteffect);
+                    
+                    if(item.starteffect.includes('fade')) {
+                        item.element.style.opacity = 0;
+                    }
+                    if(item.starteffect.includes('scale')) {
+                        item.element.style.transform = `scale(0)`;
+                    }
+                    if(item.starteffect.includes('translationLeftRight')) {
+                        item.element.style.transform = `translateX(${transdist})`;
+                    }
+                    if(item.starteffect.includes('translationRightLeft')) {
+                        item.element.style.transform = `translateX(-${transdist})`;
+                    }
+                    if(item.starteffect.includes('translationUpDown')) {
+                        item.element.style.transform = `translateY(${transdist})`;
+                    }
+                    if(item.starteffect.includes('translationDownUp')) {
+                        item.element.style.transform = `translateY(-${transdist})`;
+                    } 
+
+                    if(item.starteffect.includes('translationX')) {
+                        item.element.style.transform = `translateX(-${transdist})`;
+                    }
+                    if(item.starteffect.includes('translationY')) {
+                        item.element.style.transform = `translateY(${transdist})`;
+                    }
+                    
+                }
+                
+                if( frameNumber > startoffset ) {
+                    //console.log(' frameNumber > startoffset ');
+                    //console.log('starts lenis effect ');
+                    item.element.style.zIndex = 10;
+                    increaseStart[index] = (frameNumber - startoffset )/frameoffset
+                    if(increaseStart[index] > 1) increaseStart[index] = 1;
+                    decreaseStart[index] = 1 - increaseStart[index];
+
+                    //console.log('increaseStart[{{ xid }}_'+index+']: '+ increaseStart[index]);
+                    //console.log('decreaseStart[{{ xid }}_'+index+']: '+ decreaseStart[index]);                    
+
+                    if(item.starteffect.includes('fade')) {
+                        item.element.style.opacity = increaseStart[index];
+                    }
+                    if(item.starteffect.includes('scale')) {
+                        item.element.style.transform = `scale(${increaseStart[index]})`;
+                    }
+                    if(item.starteffect.includes('translationLeftRight')) {
+                        item.element.style.transform = `translateX(calc(${decreaseStart[index]} * -${transdist}))`;
+                    }
+                    if(item.starteffect.includes('translationRightLeft')) {
+                        item.element.style.transform = `translateX(calc(${decreaseStart[index]} * ${transdist}))`;
+                    }
+                    if(item.starteffect.includes('translationUpDown')) {
+                        item.element.style.transform = `translateY(calc(${decreaseStart[index]} * -${transdist}))`;
+                    }
+                    if(item.starteffect.includes('translationDownUp')) {
+                        item.element.style.transform = `translateY(calc(${decreaseStart[index]} * ${transdist}))`;
+                    }
+                }
+
+                if( frameNumber > endoffset) {
+                    //console.log(' frameNumber > endoffset ');
+                    //console.log('ends lenis effect ');
+                    item.element.style.zIndex = 9;
+                    increaseEnd[index] = (frameNumber - endoffset )/frameoffset
+                    if(increaseEnd[index] > 1) increaseEnd[index] = 1;
+                    decreaseEnd[index] = 1 - increaseEnd[index];
+
+                    if(item.endeffect.includes('fade')) {
+                        item.element.style.opacity = decreaseEnd[index];
+                    }
+                    if(item.endeffect.includes('scale')) {
+                        item.element.style.transform = `scale(${decreaseEnd[index]})`;
+                    }
+                    if(item.endeffect.includes('translationLeftRigh')) {
+                        item.element.style.transform = `translateX(calc(${increaseEnd[index]} * ${transdist}))`;
+                    }
+                    if(item.endeffect.includes('translationRightLeft')) {
+                        item.element.style.transform = `translateX(calc(${increaseEnd[index]} * -${transdist}))`;
+                    }
+                    if(item.endeffect.includes('translationUpDown')) {
+                        item.element.style.transform = `translateY(calc(${increaseEnd[index]} * ${transdist}))`;
+                    }
+                    if(item.endeffect.includes('translationDownUp')) {
+                        item.element.style.transform = `translateY(calc(${increaseEnd[index]} * -${transdist}))`;
+                    }
+                }
+            })
+        });
+    }
+
+</script>
+{{ /if }}
+
+
+<!-- End: /page_builder/_section.antlers.html -->

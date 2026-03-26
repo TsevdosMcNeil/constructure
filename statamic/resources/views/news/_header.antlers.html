@@ -1,0 +1,111 @@
+{{#
+    @name News header
+    @desc The default header for news pages.
+#}}
+
+<!-- /news/_header.antlers.html -->
+
+<header class="fluid-container grid gap-4 md:grid-cols-12 pt-5 pb-5">
+    <div class="
+        max-w-none
+        md:col-span-1
+        relative
+    ">
+        <a href="/journal" >
+            {{ partial:icons/arrow
+                svg_size="55"
+                svg_class="group fill-none hover:bg-green rotate-[90deg] absolute left-[75px] top-[22px] z-1"
+                circle_class="stroke-green"
+                path_class="stroke-green group-hover:stroke-white" 
+            }} 
+        </a>
+    </div>
+    <div class="
+        max-w-none
+        md:col-span-9
+        md:col-start-4
+        mb-24
+        animate-appearsin opacity-0
+    ">
+        {{ partial:typography/h1 
+            as="h4" 
+            :content="broken_title ?? title" 
+            class="text-left" 
+            color="text-green"
+        }}
+
+        <div class="mt-3">
+
+            {{ partial:typography/time 
+                :content="date" 
+                format='D MMMM YYYY'
+                class="block text-left" 
+            }}
+        </div>
+    </div>
+
+    {{  partial:components/image
+        :image="image"
+        figure_class="mb-24
+            md:col-span-9
+            md:col-start-4
+            animate-appearsin opacity-0"
+        ratio="3/2"
+    }}
+
+    <ul class="
+            md:col-span-2 
+            md:col-start-2
+            opacity-0
+        "
+        x-data="{shown_meta: false}" 
+        x-intersect.once="shown_meta = true;"
+        :class="shown_meta ? 'animate-appearsin' : '';" 
+    >
+        <li id="date" 
+            class="mb-4"
+        >
+            {{ partial:typography/p 
+                as="span"
+                content="Date"
+                color="text-green" 
+            }}
+            {{ partial:typography/time 
+                :content="date" 
+                format='D MMMM YYYY'
+                class="block text-left" 
+            }}
+        </li>
+        <li id="author" 
+            class="mb-4"
+        >
+            {{ partial:typography/p 
+                as="span"
+                content="Author"
+                color="text-green"  
+            }}
+
+
+            {{ authors }}
+                {{ partial:news/author }}  
+            {{ /authors }}
+
+        </li>
+    </ul>
+
+    <div class="mb-24
+            max-w-none
+            md:col-span-9
+            md:col-start-4
+            opacity-0
+        "
+        x-data="{shown_summary: false}" 
+        x-intersect.once="shown_summary = true;"
+        :class="shown_summary ? 'animate-appearsin ' : '';" 
+    >
+        {{ new_summary }}
+    </div>
+    
+</header>
+
+<!-- /news/_header.antlers.html -->

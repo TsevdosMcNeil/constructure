@@ -1,0 +1,63 @@
+{{#
+    @name Member Card
+    @desc Displays a member profile
+    @set page.article.member_card
+#}}
+
+<!-- /components/_member_card.antlers.html -->
+
+{{# 
+    bg-black
+    bg-gainsboro
+    bg-darkgrey
+    bg-blue
+    bg-green
+    bg-grey
+    bg-orange
+    bg-slategrey
+    bg-white
+#}}
+{{ figure_colour = 'bg-blue' }}
+{{ if memberprofile_bg_colour}} 
+    {{ figure_colour = 'bg-'+memberprofile_bg_colour }}
+{{ endif }}
+
+{{ figure_class = figure_colour }}
+{{ if memberprofile_hover_image }} 
+    {{ figure_class .= ' opacity-1 group-hover:opacity-0 transition-opacity'}}
+{{ endif }}
+
+{{ figure_hover_class = figure_colour + " 
+    !absolute 
+    w-full
+    top-0 left-0
+    opacity-0 
+    group-hover:opacity-100
+    transition-opacity"
+}}
+
+<div class="group member_card relative">
+    {{  partial:components/image
+        :image="memberprofile_image"
+        image_sizes="100vw, (min-width: 768px) 50vw"
+        ratio="2/3"
+        :figure_class="figure_class"
+    }}
+    {{ if memberprofile_hover_image }}
+        {{  partial:components/image
+            :image="memberprofile_hover_image"
+            image_sizes="100vw, (min-width: 768px) 50vw"
+            ratio="2/3"
+            :figure_class="figure_hover_class"
+        }}
+    {{ endif }}
+
+    <div class="mt-2 mb-5">
+        <div class="member_name">{{ memberprofile_name }}</div>
+        {{ partial:typography/p
+            :content="memberprofile_role" 
+            class="member_role"
+        }}
+    </div>
+</div>
+<!-- End: /components/_member_card.antlers.html -->

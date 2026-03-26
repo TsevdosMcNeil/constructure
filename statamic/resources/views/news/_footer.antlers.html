@@ -1,0 +1,24 @@
+{{#
+    @name News Footer
+    @desc The default footer for news pages.
+#}}
+
+<!-- /news/_footer.antlers.html -->
+
+{{# footer | dump #}}
+{{ collection:previous 
+    in="news" 
+    sort="date:asc" 
+    limit="1" 
+    as="items" 
+}}
+    {{ if no_results }}
+        {{ partial:layout/footer }}
+    {{ else }}
+        {{ items }}
+            {{ partial:news/footer_next }}
+        {{ /items }}
+    {{ /if }}
+{{ /collection:previous }}
+
+<!-- End: /news/_footer.antlers.html -->

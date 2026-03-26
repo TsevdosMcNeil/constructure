@@ -1,0 +1,11 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: glide_enabled
+            field:
+              type: toggle
+              display: Enabled

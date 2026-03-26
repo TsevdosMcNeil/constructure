@@ -1,0 +1,14 @@
+@import "tailwindcss/base";
+
+@import "base/fonts";
+@import "custom";
+@import "components/header";
+@import "components/footer";
+@import "components/home";
+@import "components/contact";
+
+@import "utilities/parallax";
+
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+

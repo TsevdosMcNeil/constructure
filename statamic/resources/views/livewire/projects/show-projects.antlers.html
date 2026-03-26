@@ -1,0 +1,288 @@
+<div
+    x-data="projectsInit()"
+>
+
+    {{# Filters #}}
+    <section 
+        x-show="!hidefilters" 
+        id="" 
+        @hide-filters.window="hidefilters = $event.detail"
+        class="fluid-container grid gap-0 md:grid-cols-12 pt-8">
+
+        {{# w-1/2 w-1/3 w-1/4 #}}
+        {{ taxonomies = ['sectors', 'expertises'] }}
+        {{ wrap_class = "w-1/{{ taxonomies | length }} group" }}
+
+        <div class="md:col-span-3 md:col-start-2" >
+            <div class="w-full flex">
+
+                {{ foreach:taxonomies }}
+                    {{ partial:layout/filter-list
+                        :wrap_class="wrap_class" 
+                        :tax="value" 
+                    }}
+                {{ /foreach:taxonomies }}
+            </div>
+
+        </div>
+        <div class="md:col-span-1" >
+            <ul class="flex items-stretch justify-between max-w-[80px]">
+                <li role="button" 
+                    class="cursor-pointer hover:text-blue"
+                    @click="selected_viewmode = 'grid'"
+                    x-bind:class="
+                    selected_viewmode === 'grid'
+                        ? 'text-blue'
+                        : 'text-primary'
+                    "
+                    
+                    >Grid</li>
+                <li role="button" 
+                    class="cursor-pointer hover:text-blue"
+                    @click="selected_viewmode = 'list'"
+                    x-bind:class="
+                    selected_viewmode === 'list'
+                        ? 'text-blue'
+                        : 'text-primary'
+                    ">List</li>
+            </ul>
+        </div>
+    </section>
+
+    {{# Projects #}}
+    
+    {{ unless no_results }}
+
+    <section x-show="selected_viewmode === 'grid'"
+        class="fluid-container 
+            grid md:grid-cols-12 
+            gap-0 
+            pt-8 pb-8  md:pt-40 md:pb-40
+        "
+        wire:loading.class="loading"
+        wire:loading.class.remove="loaded"
+    > 
+    
+        {{ int = 1 }}
+
+        {{ projects }}
+            {{ num_columns_class = "md:col-span-3"}}
+            {{ first_position = false }}
+
+            {{if index == 0}}
+                {{ num_columns_class = "md:col-span-8 md:pb-32"}}
+                {{ first_position = true }}
+            {{elseif
+                index%7 == 1
+            }}
+                {{ num_columns_class = "md:col-span-3 md:col-start-1"}}
+            {{elseif
+                index%7 == 2
+            }}
+                {{ num_columns_class = "md:col-span-5 md:col-start-8 md:pb-0"}}
+            {{elseif
+                index%7 == 3
+            }}
+                {{ num_columns_class = "md:col-span-5 md:col-start-3 md:pb-24"}}
+            {{elseif
+                index%7 == 4
+            }}
+                {{ num_columns_class = "md:col-span-9 md:col-start-4 md:pt-16"}}
+            {{elseif
+                index%7 == 5
+            }}
+                {{ num_columns_class = "md:col-span-7 md:pt-16"}}
+            {{elseif
+                index%7 == 6
+            }}
+                {{ num_columns_class = "md:col-span-4 md:col-start-9 grid items-end md:pt-16"}}
+
+            {{/if}}
+
+            {{ grid_caption_floating = false }}
+            {{ if grid_caption_hposition == 'below' }}
+                {{ grid_caption_floating = true }}
+            {{/if}}
+
+            {{ location_title = '' }}
+            {{ locations }}
+                {{ location_title += title + ',' }}
+            {{ /locations }}
+            {{ location_title = location_title | substr(0, -1) }}
+
+            {{ grid_caption = '
+                <p>
+                    <span class="text-blue">'+ title + '</span><br/>
+                    <span>'+ location_title + '</span><br/>
+                    <span>'+ arquitect + '</span>
+                </p>' }}
+
+
+            <div class="
+                    column
+                    max-w-none
+                    {{ num_columns_class }}
+                "
+            >
+                {{ partial:components/card
+                    card_class="max-w-none" 
+                    :card_class="card_class" 
+                    :card_file_type="grid_file_type"
+                    :card_image="grid_image"
+                    :card_hover_image="grid_hover_image"
+                    :card_orientation="grid_orientation"
+                    card_size="xl"
+                    :card_embed_video="grid_embed_video"
+                    :card_caption_hposition="grid_caption_hposition"
+                    :card_caption_vposition="grid_caption_vposition"
+                    :card_caption_floating="grid_caption_floating"
+                    :card_link="url"
+                    :card_slug="slug"
+                    :card_caption="grid_caption"
+                }}
+            </div>
+
+            {{ int = int + 1 }}
+
+        {{ /projects }}
+
+    </section>
+
+    <section x-show="selected_viewmode === 'list'"
+        class="fluid-container 
+            grid md:grid-cols-12 
+            gap-0 
+            pt-8 pb-8  md:pt-60 md:pb-40
+        "
+        wire:loading.class="loading"
+        wire:loading.class.remove="loaded"
+    > 
+    
+        <table  class="table-auto md:col-span-12 text-left">
+            <thead class="text-blue">
+                <tr class="border-b border-black">
+                    <th class="w-1/3 pb-6">Project</th>
+                    <th class="pb-6">Location</th>
+                    <th class="pb-6">Architect</th>
+                    <th class="pb-6">Sector</th>
+                    <th class="pb-6">Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {{ projects }}
+
+                    {{ location_title = '' }}
+                    {{ locations }}
+                        {{ location_title += title + ',' }}
+                    {{ /locations }}
+                    {{ location_title = location_title | substr(0, -1) }}
+
+                    {{ sector_title = '' }}
+                    {{ sectors }}
+                        {{ sector_title += title + ',' }}
+                    {{ /sectors }}
+                    {{ sector_title = sector_title | substr(0, -1) }}
+
+                    {{ row_slug="row_".slug }}
+
+                    {{ partial:projects/row
+                        :row_link="url"
+                        :row_title="title"
+                        :row_broken_title="broken_title"
+                        :row_slug="row_slug"
+                        :row_location="location_title"
+                        :row_architect="arquitect"
+                        :row_sector="sector_title"
+                        :row_year="project_date"
+                    }}
+
+
+                {{ /projects }}
+
+            </tbody>
+        </table>
+    </section>
+
+    {{# partial:statamic-peak-tools::components/pagination 
+        class="md:col-span-12" 
+    #}}
+
+
+    {{ else }}
+
+    <section x-show="selected_viewmode === 'grid'"
+        class="fluid-container 
+            grid md:grid-cols-12 
+            gap-0 
+            pt-8 pb-8  md:pt-40 md:pb-40
+        "
+        wire:loading.class="loading"
+        wire:loading.class.remove="loaded"
+    > 
+        <div class="md:col-span-6">
+            {{ trans:strings.no_results }}
+        </div>
+    </section>
+
+    {{ /unless }}
+
+
+    <script>
+
+        function projectsInit() {
+
+            return {   
+                hidefilters:               false,
+                filter_clicked:            false,
+            {{ foreach:taxonomies }}
+                expanded_{{ value }}:      false,
+                selected_{{ value }}_slug: {{ livewire:entangle property='selectedSlugs.{ value }' }},
+            {{ /foreach:taxonomies }}
+                selected_viewmode:         'grid',
+                    
+                select_filter(
+                    slug, 
+                    filter,
+                    action
+                ) {
+                    //console.log('select_filter action:' + action + ' slug:' + slug + ' filter:' + filter);
+                    if( action == 'add') {
+                        {{ foreach:taxonomies }}
+                            if(filter === '{{ value }}') {
+                                this.selected_{{ value }}_slug.push(slug);
+                            }
+                        {{ /foreach:taxonomies }}
+
+                        document.getElementById(slug).classList.remove('text-primary');
+                        document.getElementById(slug).classList.add('text-black');
+                    }
+                    if( action == 'remove') {
+                        {{ foreach:taxonomies }}
+                            if(filter === '{{ value }}') {
+                                this.selected_{{ value }}_slug = this.selected_{{ value }}_slug.filter(item => item !== slug);
+                            }
+                        {{ /foreach:taxonomies }}
+
+                        document.getElementById(slug).classList.remove('text-black');
+                        document.getElementById(slug).classList.add('text-primary');
+                    }
+
+                    
+                },
+
+                clear_filters( family ) {
+                    {{ foreach:taxonomies }}
+                        if( family === '{{ value }}' ) {
+                            this.selected_{{ value }}_slug = [];
+                        }
+                    {{ /foreach:taxonomies }}
+                },
+                
+            }
+        }
+      
+      </script>
+
+</div>
+<!-- End: /livewire/projects/show-projects.antlers.html -->

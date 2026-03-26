@@ -1,0 +1,56 @@
+# docker-compose.yml
+services:
+  node:
+    image: node:25-alpine
+    ports:
+      - "${NODE_PORT:-5173}:${NODE_PORT:-5173}"
+    build:
+      context: ./docker/node # build a custom Node image to match your host's UID/GID (optional, but helps with file permissions)
+    container_name: ${NODE_CONTAINER:-statamic_node}  # optional: name your container for easier access, this is called in Caddyfile
+    working_dir: /var/www/html
+    volumes:
+      - ./statamic:/var/www/html     # or ./ if your app lives at the root
+    # entrypoint: ["sh", "-c"] # override the default node image entrypoint to allow custom commands
+    command: ["tail", "-f", "/dev/null"]   # keep the container running (so we can use docker compose exec isntead of docker compose run )
+    extra_hosts:
+    - "${STATAMIC_HOST}:host-gateway"  # <-- let the container resolve your host's DNS name to the host's IP address, useful for Caddy to proxy to Node
+    # optional: run as your host user to avoid root-owned files
+    # user: "${UID:-1000}:${GID:-1000}"
+  statamic:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+      #args:
+      #  UID: ${UID:-1000}
+      #  GID: ${GID:-1000}
+    container_name: ${STATAMIC_CONTAINER:-statamic_app} # optional: name your container for easier access, this is called in Caddyfile
+    working_dir: /var/www/html
+    volumes:
+      - ./statamic:/var/www/html
+      - composer_cache:/tmp/composer
+    environment:
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: "1"
+    # depends_on:
+    #   - redis
+
+  caddy:
+    image: caddy:2
+    # container_name: statamic_caddy
+    ports:
+      # - "8080:80"      # optional HTTP
+      #- "${STATAMIC_SSL_PORT}:443"    # host:container, HTTPS matches your Caddyfile (:8446)
+      - "${STATAMIC_SSL_PORT}:${STATAMIC_SSL_PORT}"   # HTTPS on custom port, it should match the Caddyfile port 
+    volumes:
+      - ./statamic:/var/www/html:ro # needed for  this line in Caddyfile: root * /var/www/html/public (to serve static assets and read the index.php file, set to read-only for security)
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./certs:/etc/caddy/certs:ro
+    depends_on:
+      - statamic
+
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: statamic_redis
+  #   ports:
+  #     - "6380:6379"
+volumes:
+  composer_cache:

@@ -1,0 +1,20 @@
+/* Card block */
+
+@layer utilities {
+    
+    .card_caption {
+        width: calc(
+            (   100vw 
+                - calc(env(safe-area-inset-left, 0rem) + 4rem)  
+                - calc(env(safe-area-inset-right, 0rem) + 4rem)
+            ) / 12
+        );
+        min-width: calc(
+            (   100vw 
+                - calc(env(safe-area-inset-left, 0rem) + 4rem)  
+                - calc(env(safe-area-inset-right, 0rem) + 4rem)
+            ) / 12
+        );
+    }
+    
+}

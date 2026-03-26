@@ -1,0 +1,126 @@
+{{#
+    @name Next Footer
+    @desc Link to next article.
+#}}
+
+<!-- /news/_footer_next.antlers.html -->
+
+{{# footer | dump #}}
+<footer id="news_footer"
+    x-data="initFooter()"
+    {{ if !live_preview }} 
+        @click="go_to_page()"
+        @touchmove="go_to_page()"
+    {{ /if }}
+    x-intersect.threshold.90="footer_class = 'footerup'"
+    x-intersect:leave.margin.-30%="change_footer_class()"
+    class="footer_collection footer_news h-120 " 
+    :class="footer_class"
+>
+<div class="footer-wrapper 
+        fixed 
+        pt-0 
+        z-30
+        w-full
+        bg-green
+        before:absolute
+        before:top-0
+        before:left-0
+        before:w-full
+        before:h-full
+        before:z-40
+        before:bg-opacity-100
+    "
+    {{ if !live_preview }} 
+        @wheel="if($event.deltaY > 0) { 
+            //console.log($event.deltaY);
+            load_new_page(); 
+        }"
+        @touchmove="load_new_page()"
+    {{ /if }}
+>
+
+
+
+    <div class="fluid-container 
+        next_new_header
+        grid gap-2 md:grid-cols-12
+        absolute
+        h-[220px]
+        bg-green
+        z-20
+        ">
+        <div class="md:col-span-5 md:col-start-8">
+            {{ partial:typography/h1 
+                content="n€xt stØry" 
+                class="text-left text-white"
+            }}
+        </div>
+    </div>
+
+    {{ partial:news/header }}
+
+    <script>
+
+        function initFooter() {
+
+            return {    
+                d :             document.documentElement,
+                offset:         0,
+                height:         0,
+                bottom_reached: false, 
+                onwheel_active: true, 
+                footer_class:  'opacity-100', 
+                next_url:      '{{ permalink }}', 
+
+                change_footer_class() {
+                    //console.log('change_footer_class')
+                    if(this.footer_class ==  'footerup') {
+                        this.footer_class = 'footerdown'
+                    }
+                    //console.log('footer_class: ' + this.footer_class)
+                },
+                go_to_page() {
+                    console.log('go_to_page ' + this.next_url);
+                    this.onwheel_active = false;
+                    this.footer_class +=  ' active';
+                    window.location.href = this.next_url
+
+                },
+                load_new_page() {
+                    //console.log('load_new_page');
+                    this.offset = this.d.scrollTop + window.innerHeight;
+                    this.height = this.d.offsetHeight;
+                    if (this.offset === this.height) {
+                        //console.log('At the bottom');
+                        //console.log('this.footer_class '+this.footer_class );
+                        //console.log('this.bottom_reached '+this.bottom_reached );
+                        //console.log('this.onwheel_active '+this.onwheel_active );
+                        setTimeout( 
+                            () => {
+                                if(this.footer_class ==  'footerup') {
+                                    this.bottom_reached = true;
+                                }
+                            }, 
+                            1800
+                        )
+                        if( this.bottom_reached === true
+                            && this.onwheel_active === true
+                        ) {
+                            console.log('trigger go_to_page()');
+                            this.go_to_page();
+                            this.onwheel_active = false;
+
+                        }
+                    } else {
+                        this.bottom_reached = false;
+                    }
+                }
+            };
+        }
+
+    </script>
+
+</div>
+</footer>
+<!-- End: /news/_footer_next.antlers.html -->

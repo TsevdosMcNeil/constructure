@@ -1,0 +1,33 @@
+# docker/php/Dockerfile
+FROM php:8.3-fpm-alpine
+
+# System deps
+RUN apk add --no-cache \
+    git curl zip unzip tzdata bash \
+    oniguruma-dev icu-dev \
+    libpng libpng-dev libjpeg-turbo libjpeg-turbo-dev libwebp-dev freetype-dev \
+    libzip-dev
+
+# PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+  && docker-php-ext-install -j"$(nproc)" gd intl mbstring zip exif opcache bcmath
+
+# Composer
+ENV COMPOSER_HOME=/tmp/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# PHP ini
+COPY conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY conf.d/custom.ini  /usr/local/etc/php/conf.d/custom.ini
+
+# Prepare a writable composer cache for www-data (uid 82 in Alpine)
+RUN install -d -o 82 -g 82 -m 0775 /tmp/composer
+
+# Run as www-data
+USER 82:82
+WORKDIR /var/www/html
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD php -r 'echo "OK";' || exit 1
+
+CMD ["php-fpm"]

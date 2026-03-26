@@ -1,0 +1,15 @@
+/* Home */
+
+body.pages-home section#projects div.column:first-of-type > a {
+    @apply block;
+    @apply w-full;
+    @apply h-full;
+}
+body.pages-home section#projects div.column:first-of-type .card {
+    @apply relative;
+    @apply -z-20;
+}
+    
+
+
+

@@ -1,0 +1,398 @@
+title: Section
+fields:
+  -
+    handle: slug
+    field:
+      input_type: text
+      antlers: false
+      type: text
+      display: Slug
+      icon: text
+      instructions: 'Use this field to apply a unique ID to this section to be used with jump links'
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      width: 33
+  -
+    handle: bg_image
+    field: common.image
+    config:
+      display: 'Background Image'
+      width: 66
+  -
+    handle: parallax_section
+    field:
+      default: false
+      type: toggle
+      display: 'Parallax Section'
+      icon: toggle
+      width: 25
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+  -
+    handle: json_lottie_file
+    field:
+      max_files: 1
+      mode: list
+      container: files
+      restrict: false
+      allow_uploads: true
+      show_filename: true
+      show_set_alt: false
+      type: assets
+      display: 'JSON Lottie File'
+      icon: assets
+      width: 50
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if:
+        parallax_section: 'equals true'
+      always_save: true
+  -
+    handle: number_of_frames
+    field:
+      input_type: number
+      antlers: false
+      type: text
+      display: 'Number of Frames'
+      icon: text
+      instructions: 'min. 200 (ideally)'
+      width: 25
+      listable: hidden
+      instructions_position: below
+      visibility: visible
+      replicator_preview: true
+      hide_display: false
+      if:
+        parallax_section: 'equals true'
+  -
+    handle: section_link
+    field:
+      type: link
+      display: 'Section link'
+      icon: link
+      instructions: 'If this section is linked to an internal or external element, select the URL here.'
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: loading_effect
+    field:
+      default: true
+      type: toggle
+      display: 'Loading effect'
+      icon: toggle
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: background_colour
+    field: common.colour
+    config:
+      display: 'Background Colour'
+      width: 33
+      default: white
+  -
+    handle: text_colour
+    field: common.colour
+    config:
+      display: 'Text Colour'
+      width: 33
+      default: black
+  -
+    handle: top_border
+    field:
+      default: false
+      type: toggle
+      display: 'Top Border'
+      icon: toggle
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: remove_columns_gap
+    field:
+      default: false
+      type: toggle
+      display: 'Remove columns gap'
+      icon: toggle
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: screen_minimum_height
+    field:
+      default: false
+      type: toggle
+      display: 'Screen minimum height'
+      icon: toggle
+      width: 33
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+  -
+    handle: columns
+    field:
+      collapse: true
+      previews: true
+      fullscreen: true
+      sets:
+        new_set_group:
+          display: 'New Section'
+          instructions: null
+          icon: null
+          sets:
+            new_column:
+              display: 'New Column'
+              instructions: null
+              icon: null
+              fields:
+                -
+                  handle: size
+                  field:
+                    min: 0
+                    max: 12
+                    step: 1
+                    type: range
+                    display: Size
+                    icon: range
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    hide_display: false
+                    width: 66
+                    replicator_preview: true
+                    default: 6
+                -
+                  handle: column_class
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: Class
+                    icon: text
+                    width: 33
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: vertical_alignment
+                  field: common.vertical_alignment
+                  config:
+                    width: 33
+                -
+                  handle: set_horizontal_position
+                  field:
+                    default: false
+                    type: toggle
+                    display: 'Set Horizontal Position'
+                    icon: toggle
+                    width: 33
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    hide_display: false
+                    instructions: 'Activate this option if you want to move the column a few positions to the right.'
+                -
+                  handle: set_span_rows
+                  field:
+                    default: false
+                    type: toggle
+                    display: 'Set span rows'
+                    icon: toggle
+                    instructions: 'Activate this item if you want the column to span more than one row'
+                    width: 33
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    hide_display: false
+                -
+                  handle: horizontal_position
+                  field:
+                    min: 0
+                    max: 12
+                    step: 1
+                    type: range
+                    display: 'Horizontal Position'
+                    icon: range
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    hide_display: false
+                    if:
+                      set_horizontal_position: 'equals true'
+                    instructions: 'The column will be shifted to the right n positions.'
+                -
+                  handle: span_rows
+                  field:
+                    min: 0
+                    max: 6
+                    step: 1
+                    default: 0
+                    type: range
+                    display: 'Span rows'
+                    icon: range
+                    instructions: 'Use this utility to make the column span n rows.'
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    hide_display: false
+                    if:
+                      set_span_rows: 'equals true'
+                -
+                  handle: lenis_column
+                  field:
+                    default: false
+                    type: toggle
+                    display: 'Lenis Column'
+                    icon: toggle
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    instructions: 'For the Lenis effect to work, this section must have the parallax effect activated.'
+                -
+                  handle: lenis_start_frame
+                  field:
+                    input_type: number
+                    antlers: false
+                    type: text
+                    display: 'Start Frame'
+                    icon: text
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    if:
+                      lenis_column: 'equals true'
+                    always_save: true
+                -
+                  handle: lenis_end_frame
+                  field:
+                    input_type: number
+                    antlers: false
+                    type: text
+                    display: 'End Frame'
+                    icon: text
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    if:
+                      lenis_column: 'equals true'
+                    always_save: true
+                -
+                  handle: lenis_start_effect
+                  field:
+                    options:
+                      fade: null
+                      scale: null
+                      translationLeftRight: null
+                      translationRightLeft: null
+                      translationUpDown: null
+                      translationDownUp: null
+                    taggable: false
+                    push_tags: false
+                    multiple: true
+                    clearable: false
+                    searchable: true
+                    cast_booleans: false
+                    type: select
+                    display: 'Start Effect'
+                    icon: select
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    always_save: true
+                    if:
+                      lenis_column: 'equals true'
+                -
+                  handle: lenis_end_effect
+                  field:
+                    options:
+                      fade: null
+                      scale: null
+                      translationLeftRight: null
+                      translationRightLeft: null
+                      translationUpDown: null
+                      translationDownUp: null
+                    taggable: false
+                    push_tags: false
+                    multiple: true
+                    clearable: false
+                    searchable: true
+                    cast_booleans: false
+                    type: select
+                    display: 'End Effect'
+                    icon: select
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    always_save: true
+                    if:
+                      lenis_column: 'equals true'
+                -
+                  import: article
+                  prefix: column_
+                -
+                  handle: top_padding
+                  field: common.top_padding
+                -
+                  handle: right_padding
+                  field: common.right_padding
+                -
+                  handle: bottom_padding
+                  field: common.bottom_padding
+                -
+                  handle: left_padding
+                  field: common.left_padding
+      type: replicator
+      display: Columns
+      icon: replicator
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      hide_display: false
+      replicator_preview: true
+  -
+    handle: top_padding
+    field: common.top_padding
+  -
+    handle: right_padding
+    field: common.right_padding
+  -
+    handle: bottom_padding
+    field: common.bottom_padding
+  -
+    handle: left_padding
+    field: common.left_padding

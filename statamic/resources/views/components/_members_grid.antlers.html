@@ -1,0 +1,22 @@
+{{#
+    @name Members Grid
+    @desc  A grid of members
+    @set page.article.members_grid
+#}}
+
+<!-- /components/_members_grid.antlers.html -->
+
+
+<div class="grid gap-4 md:grid-cols-12">
+    {{ members_grid }}
+    <div class="
+        column
+        max-w-none
+        md:col-span-3
+    ">
+        {{ partial:components/_member_card }}
+    </div>
+    {{ /members_grid }}
+</div>
+
+<!-- End: /components/_members_grid.antlers.html -->

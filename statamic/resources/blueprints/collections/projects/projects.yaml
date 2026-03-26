@@ -1,0 +1,362 @@
+title: Projects
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: Header
+        fields:
+          -
+            handle: title
+            field:
+              type: textarea
+              required: true
+              antlers: false
+              display: Title
+              icon: textarea
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+              validate:
+                - required
+              width: 75
+          -
+            handle: top_title_colour
+            field: common.colour
+            config:
+              display: 'Top Title Colour'
+              width: 25
+              default: white
+          -
+            handle: broken_title
+            field:
+              type: textarea
+              antlers: false
+              display: 'Broken Title'
+              icon: textarea
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+              width: 75
+              replicator_preview: true
+          -
+            handle: subtitle
+            field: common.text_rich
+            config:
+              buttons:
+                - h2
+                - h3
+                - bold
+                - italic
+                - unorderedlist
+                - orderedlist
+                - removeformat
+                - color
+                - quote
+                - anchor
+              display: Subtitle
+              width: 75
+          -
+            handle: subtitle_colour
+            field: common.colour
+            config:
+              display: 'Subtitle Background Colour'
+              width: 25
+      -
+        display: 'Page builder'
+        fields:
+          -
+            import: page_builder
+  grid:
+    display: Grid
+    sections:
+      -
+        display: 'Project Thumbnail'
+        instructions: 'Select here the image(s) or video to display in the projects grid.'
+        fields:
+          -
+            handle: hide_in_projects_index
+            field:
+              default: false
+              type: toggle
+              display: 'Hide in projects index'
+              icon: toggle
+              instructions: 'Click here to prevent this project from being visible in the project grid.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              width: 75
+          -
+            handle: grid_file_type
+            field:
+              options:
+                image: Image
+                video: Video
+              default: image
+              type: button_group
+              display: 'Grid File Type'
+              icon: button_group
+              width: 25
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              validate:
+                - required
+          -
+            handle: grid_image
+            field: common.image
+            config:
+              mode: grid
+              listable: true
+              display: 'Grid Image'
+              width: 66
+              folder: projects
+              show_set_alt: true
+              if:
+                grid_file_type: 'equals image'
+          -
+            handle: grid_orientation
+            field: common.orientation
+            config:
+              options:
+                default: Default
+                portrait: Portrait
+                landscape: Landscape
+              default: default
+              width: 33
+              if:
+                grid_file_type: 'equals image'
+          -
+            handle: grid_hover_image
+            field: common.image
+            config:
+              mode: list
+              display: 'Hover Image'
+              width: 66
+              folder: projects
+              if:
+                grid_file_type: 'equals image'
+          -
+            handle: grid_embed_video
+            field: video.video_url
+            config:
+              width: 100
+              display: 'Embed Video'
+              if:
+                grid_file_type: 'equals video'
+          -
+            handle: grid_caption_hposition
+            field:
+              options:
+                prev: Previous
+                below: Below
+                next: Next
+              default: below
+              type: button_group
+              display: 'Caption horizontal position'
+              icon: button_group
+              width: 50
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: grid_caption_vposition
+            field:
+              options:
+                top: Top
+                bottom: Bottom
+              default: top
+              type: button_group
+              display: 'Caption Vertical Position'
+              icon: button_group
+              width: 50
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              if:
+                grid_caption_hposition: 'not below'
+  seo:
+    display: SEO
+    sections:
+      -
+        display: Basic
+        instructions: 'Basic SEO settings.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_basic'
+      -
+        display: Advanced
+        instructions: 'Advanced SEO settings.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_advanced'
+      -
+        display: 'Open Graph'
+        instructions: 'Open Graph meta tags for social sharing.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_open_graph'
+      -
+        display: Sitemap
+        instructions: 'Sitemap configuration.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_sitemap'
+      -
+        display: 'JSON-ld Schema'
+        instructions: 'Custom JSON-ld schema objects.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_jsonld'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        display: Meta
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              generate: true
+              listable: hidden
+              display: Slug
+              validate:
+                - required
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              listable: true
+              validate:
+                - required
+              display: Date
+              mode: single
+              time_enabled: false
+              time_required: false
+              earliest_date: '2021-01-01'
+              full_width: false
+              inline: false
+              columns: 1
+              rows: 1
+          -
+            handle: image
+            field: common.image
+            config:
+              mode: grid
+              listable: true
+              width: 100
+              validate:
+                - required
+          -
+            handle: locations
+            field:
+              type: terms
+              taxonomies:
+                - locations
+              display: Location
+              mode: select
+              instructions_position: above
+              listable: hidden
+              visibility: visible
+              max_items: 1
+              create: true
+              hide_display: false
+              replicator_preview: true
+          -
+            handle: sectors
+            field:
+              type: terms
+              taxonomies:
+                - sectors
+              display: Sector
+              mode: select
+              instructions_position: above
+              listable: hidden
+              visibility: visible
+              max_items: 1
+              create: true
+              hide_display: false
+              replicator_preview: true
+          -
+            handle: expertises
+            field:
+              type: terms
+              taxonomies:
+                - expertises
+              display: Expertise
+              mode: select
+              max_items: 1
+              create: true
+              icon: taxonomy
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: project_architect
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Arquitect
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+              replicator_preview: true
+          -
+            handle: project_team
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Constructure Team'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+              replicator_preview: true
+          -
+            handle: project_services
+            field:
+              antlers: false
+              type: textarea
+              display: Services
+              icon: textarea
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: project_date
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Project Date'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              hide_display: false
+          -
+            import: related_entry
+            prefix: bottom_

@@ -1,0 +1,40 @@
+{{#
+    @name Advanced Horizontal Rule
+    @desc A horizontal rule with customisable colour and thickness.
+    @param colour    The colour of the horizontal rule.
+    @param thickness The thickness of the horizontal rule.
+    @set page.article.advanced_horizontal_rule
+#}}
+
+<!-- /components/_padvanced_horizontal_rule.antlers.html -->
+
+{{ hr_class =  'border-0 w-full' }}
+
+{{ if colour}}
+    {{ hr_class .=  ' bg-'+colour }}
+{{ else }}
+    {{ hr_class .=  ' bg-black' }}
+{{ /if }}
+
+{{#
+    h-[2px]
+    h-[3px]
+    h-[4px]
+    h-[5px]
+    h-[6px]
+    h-[7px]
+    h-[8px]
+    h-[9px]
+    h-[10px]
+#}}
+{{ if thickness > 1 }}
+    {{ hr_class .=  ' h-['+thickness+'px]' }}
+{{ else }}
+    {{ hr_class .=  ' h-px' }}
+{{ /if }}
+
+<hr class="{{hr_class}}" />
+
+
+
+<!-- End: /components/_advanced_horizontal_rule.antlers.html -->

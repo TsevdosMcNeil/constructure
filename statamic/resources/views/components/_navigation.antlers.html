@@ -1,0 +1,25 @@
+{{#
+    @name Navigation
+    @desc List of links.
+    @param links_list   
+    @set page.article.navigation
+    
+#}}
+
+<!-- /components/_navigation.antlers.html -->
+
+<nav class="w-full">
+    <ul class="w-full mx-auto">
+        {{ links_list }}
+        <li class="group leading-none">
+            <a 
+                href="{{ link_field }}" 
+                class="text-black hover:text-primary"
+            >
+                {{ title }}
+            </a>
+        </li>
+        {{ /links_list }}
+    </ul>
+</nav>  
+<!-- End: /components/_navigation.antlers.html -->

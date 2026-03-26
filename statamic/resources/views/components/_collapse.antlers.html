@@ -1,0 +1,193 @@
+{{#
+    @name Collapse
+    @desc Show and hide content. The title is used as triggers that collapse a the content displayed in two column.
+#}}
+
+<!-- /components/_collapse.antlers.html -->
+
+{{# collapse_menu | dump #}}
+
+{{ collapse_int = 0  }}
+<div x-data="initAccordion()">
+{{ collapse_menu }}
+
+
+    {{ html_colour =  'black' }}
+    {{ if collapse_colour }}
+        {{ html_colour =  collapse_colour }}
+    {{ /if }}
+
+    {{ html_hover_colour =  'orange' }}
+    {{ if collapse_hover_colour }}
+        {{ html_hover_colour =  collapse_hover_colour }}
+    {{ /if }}
+
+
+    {{# 
+        text-black 
+        text-grey 
+        text-white 
+        text-blue 
+        text-darkgrey 
+        text-green
+        text-orange
+        group-hover:text-black 
+        group-hover:text-grey 
+        group-hover:text-white 
+        group-hover:text-blue 
+        group-hover:text-darkgrey 
+        group-hover:text-green
+        group-hover:text-orange
+
+        bg-black 
+        bg-grey 
+        bg-white 
+        bg-blue 
+        bg-darkgrey 
+        bg-green
+        bg-orange
+        group-hover:bg-black 
+        group-hover:bg-grey 
+        group-hover:bg-white 
+        group-hover:bg-blue 
+        group-hover:bg-darkgrey 
+        group-hover:bg-green
+        group-hover:bg-orange
+
+        stroke-black 
+        stroke-grey 
+        stroke-white 
+        stroke-blue 
+        stroke-darkgrey 
+        stroke-green
+        stroke-orange
+        group-hover:stroke-black 
+        group-hover:stroke-grey 
+        group-hover:stroke-white 
+        group-hover:stroke-blue 
+        group-hover:stroke-darkgrey 
+        group-hover:stroke-green
+        group-hover:stroke-orange
+    #}}
+
+
+    {{ html_class = class + ' 
+        pt-6
+        mb-6
+        cursor-pointer 
+        group 
+        border-t border-black 
+        grid gap-4 md:grid-cols-12'
+    }}
+    {{ svg_class = ' 
+        float-right
+        fill-none
+        group-hover:bg-'+html_hover_colour
+    }}
+    {{ circle_class = 'stroke-' + html_hover_colour }}
+    {{ path_class = 'stroke-' + html_hover_colour + '
+        group-hover:stroke-white'
+    }}
+    {{ title_class = 'md:col-span-5
+        text-' + html_colour  + '        
+        group-hover:text-'+html_hover_colour
+    }}
+    
+
+    
+
+    {{ if collapse_text_size }}
+
+        {{ title_tag =  collapse_text_size }}
+
+        {{ if collapse_text_size == 'h2' }}
+            {{svg_size = 80 }}
+            {{ title_class .= ' -mt-2' }}
+        {{ /if }}
+
+        {{ if collapse_text_size == 'h3' }}
+            {{svg_size = 55 }}
+            {{ title_class .= ' -mt-2' }}
+        {{ /if }}
+
+        {{ if collapse_text_size == 'h4' }}
+            {{svg_size = 35 }}
+            {{ title_class .= ' -mt-2' }}
+        {{ /if }}
+
+        {{ if collapse_text_size == 'text-base' }}
+            {{svg_size = 20 }}
+            {{ title_tag = 'p'}}
+        {{ /if }}
+
+    {{ else }}
+        {{svg_size = 55 }}
+        {{ title_tag = 'h3'}}
+        {{ title_class .= '-mt-3' }}
+    {{ /if }}
+
+    <div>
+        <div class="{{html_class}}"
+            @click="toggleCollapsed({{ collapse_int}})"
+        >
+            
+            {{ partial:typography/h2 
+                :as="title_tag"
+                :content="collapse_title" 
+                :class="title_class"
+            }}
+
+            <div class="md:col-span-4">
+                <div x-show="expanded[{{ collapse_int}}]"
+                    x-collapse
+                    x-bind:class="{'opened' : expanded[{{ collapse_int}}] && showOverflow }"
+                    class="py-0 pl-8"
+                >{{ collapse_column }}</div>
+            </div>
+
+            <div class="md:col-start-12 md:col-span-1">
+                <span class="inline-block transition-all" 
+                    x-bind:class="{'rotate-[180deg]' : expanded[{{ collapse_int}}]  }"
+                >
+                    {{ partial:icons/arrow
+                        :svg_size="svg_size"
+                        :svg_class="svg_class"
+                        :circle_class="circle_class"
+                        :path_class="path_class" 
+                    }} 
+                </span>
+            </div>
+        </div>
+        
+    </div>
+    {{ collapse_int = collapse_int + 1  }}
+
+{{ /collapse_menu }}
+</div>
+<script>
+
+    function initAccordion() {
+
+        return {      
+            expanded: [],
+            showOverflow: false, //This is needed to show the UL dots when the accordion is open
+
+            toggleCollapsed( expanded_int ) {
+                let prev = this.expanded[expanded_int];
+                this.collapseAccordion();
+                this.expanded[expanded_int] = !prev;
+      
+                setTimeout(() => this.showOverflow = true, 100)
+                
+            },
+            collapseAccordion() {
+                this.expanded.fill(false);
+                this.showOverflow = false;
+            },
+
+        }
+    
+    }
+ 
+  </script>
+<!-- End: /components/_collapse.antlers.html -->

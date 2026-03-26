@@ -1,0 +1,14 @@
+/* Contact */
+
+
+body.pages-contact main#content {
+    @apply hidden;
+}
+
+body.pages-contact .show-pages-contact {
+    @apply block;
+}
+    
+
+
+

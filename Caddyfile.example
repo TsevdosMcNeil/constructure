@@ -1,0 +1,24 @@
+{
+	log {
+		level DEBUG
+	}
+}
+
+https://constructure.localhost:8454 {
+  tls /etc/caddy/certs/constructure.localhost.pem /etc/caddy/certs/constructure.localhost-key.pem
+  root * /var/www/html/public
+  encode zstd gzip
+
+  # Vite HMR + internal module paths
+  @vite {
+    path /@vite/*
+    path /@id/*
+    path /@fs/*
+    path /resources/*
+    path /node_modules/*
+  }
+  reverse_proxy @vite node_constructure:5174
+
+  php_fastcgi statamic_constructure:9000
+  file_server
+}

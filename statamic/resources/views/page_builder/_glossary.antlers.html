@@ -1,0 +1,75 @@
+{{#
+	@name GLossary
+	@desc A glossary of terms used in the page builder. 
+    @set page.page_builder.glossary   
+#}}
+
+<!-- /page_builder/_glossary.antlers.html -->
+
+
+
+<section id="glonavigation" 
+    x-data="{ shown_glonavigation: false }" 
+    x-intersect.once="shown_navigation = true;" 
+    class="fluid-container 
+            grid gap-4 md:grid-cols-12 
+            pt-5 pb-5 
+            text-black bg-white 
+        " 
+    :class="shown_navigation ? 'animate-appearsin opacity-0' : '';"
+>
+    <div class="max-w-none
+            md:col-span-9
+            md:col-start-4
+            glossary_table_of_contents"
+    >
+        {{ partial:typography/p 
+            :content="table_of_contents_title" 
+            class="mb-0"
+        }}
+
+
+        <nav class="w-full border-b border-black">
+            <ul class="w-full 
+                    mx-auto 
+                    flex 
+                    items-stretch 
+                    justify-start">
+
+
+                {{sections}}
+
+                {{ if title  }}
+                    <li class="group leading-none">
+                        <a href="#{{ title | slugify | replace('-', '') }}" 
+                            class="text-blue
+                                hover:text-black">
+                            <h4 class="uppercase">{{ title | slugify | replace('-', '') }}</h4>
+                        </a>
+                    </li>
+                {{ /if }}
+
+                {{/sections}}
+
+                
+
+            </ul>
+        </nav>  
+    </div>
+
+</section>
+
+<div class="mb-44">
+    {{loopnumber = 0}}
+    {{sections}}
+
+        {{ partial:glossary/table
+            :loopnumber="loopnumber" 
+        }}
+
+        {{loopnumber = loopnumber + 1}}
+
+    {{/sections}}
+
+</div>
+<!-- End: /page_builder/_glossary.antlers.html -->

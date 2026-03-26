@@ -1,0 +1,16 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: icon
+            field: common.image
+            config:
+              display: Icon
+          -
+            handle: hover_icon
+            field: common.image
+            config:
+              display: 'Hover Icon'

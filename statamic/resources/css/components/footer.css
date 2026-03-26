@@ -1,0 +1,32 @@
+/* Footer */
+
+.footer_collection.footerup .footer-wrapper {
+    @apply animate-movefooterup;
+    @apply overflow-scroll;
+}
+.footer_collection.footerdown .footer-wrapper {
+    @apply animate-movefooterdown;
+}
+
+.footer_collection.active .footer-wrapper {
+    @apply h-auto;
+    @apply animate-fillscreen;
+}
+
+
+.footer_collection.active .footer-wrapper {
+    @apply before:bg-white;
+    @apply  before:bg-opacity-50;
+    @apply  before:transition-opacity;
+}
+.footer_collection.footer_projects.active .footer-wrapper .text-white {
+    @apply text-blue;
+}
+
+.footer_collection.footer_news.active .footer-wrapper .next_new_header {
+    @apply opacity-0;
+    @apply  transition-opacity;
+}
+
+
+

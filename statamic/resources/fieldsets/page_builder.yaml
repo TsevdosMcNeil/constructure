@@ -1,0 +1,88 @@
+title: 'Page builder'
+fields:
+  -
+    handle: page_builder
+    field:
+      type: replicator
+      localizable: true
+      hide_display: true
+      collapse: true
+      listable: false
+      display: 'Page builder'
+      sets:
+        row:
+          display: Rows
+          instructions: 'Display blocks in rows.'
+          icon: layout-header
+          sets:
+            section:
+              display: Section
+              instructions: 'Column repeater block .'
+              icon: dashboard-layout-2
+              fields:
+                -
+                  import: section
+        interactive:
+          display: Interactive
+          instructions: 'Interactive blocks.'
+          icon: programming-script-code
+          sets:
+            form:
+              display: Form
+              instructions: 'Select and render a form.'
+              icon: mail-chat-bubble-text
+              fields:
+                -
+                  import: form
+            index_content:
+              display: 'Index content'
+              instructions: 'Render the currently mounted entries if available.'
+              icon: null
+              fields:
+                -
+                  import: index_content
+            link_blocks:
+              display: 'Link blocks'
+              instructions: 'Show linkable blocks with text.'
+              icon: link
+              fields:
+                -
+                  import: link_blocks
+            news:
+              display: News
+              instructions: 'List the most recent News.'
+              icon: null
+              fields:
+                -
+                  import: news
+            projects:
+              display: Projects
+              instructions: 'List the most recent Projects.'
+              icon: null
+              fields:
+                -
+                  import: projects
+            glossary:
+              display: Glossary
+              instructions: null
+              icon: edit-design-compare-ab-testing
+              fields:
+                -
+                  import: glossary
+        text:
+          display: Text
+          instructions: 'Text based blocks.'
+          icon: text-formatting-initial-letter
+          sets:
+            article:
+              display: Article
+              instructions: 'Long form content, can be expanded with media like figures, video, quotes or tables.'
+              icon: text-formatting-image-bottom
+              fields:
+                -
+                  import: article
+      instructions_position: above
+      visibility: visible
+      previews: true
+      fullscreen: true
+      replicator_preview: true

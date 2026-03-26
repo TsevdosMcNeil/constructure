@@ -1,0 +1,200 @@
+{{#
+    @name Projects show
+    @desc The Projects show template.
+#}}
+
+<!-- /projects/show.antlers.html -->
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ permalink }}"
+        },
+        "headline": "{{ title }}",
+        "image": "{{ config:app:url }}{{ image }}",
+        "datePublished": "{{ date format="Y-m-d\TH:i:s" }}",
+        "author": {
+            "@type": "Organization",
+            "name": "{{ config:app:name }}",
+            "url": "{{ config:app:url }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{ config:app:name }}"{{ if seo:organization_logo }},
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ config:app:url }}{{ glide:seo:organization_logo width='336' height='336' fit='contain' }}"
+            }{{ /if }}
+        }
+    }
+</script>
+
+
+{{ header_class = "text-left" }}
+{{ if top_title_colour }}
+    {{ header_class .= " text-" + top_title_colour }}
+{{/if}}
+
+{{ subtitle_class = "" }}
+{{ if subtitle_colour }}
+    {{ subtitle_class .= " bg-" + subtitle_colour }}
+{{/if}}
+
+
+{{ project_sector   =  '' }}
+{{ project_location =  '' }}
+
+{{ if sectors }}
+    {{ sectors }}  
+        {{ project_sector =  title }}
+    {{ /sectors }}
+{{ endif }}
+
+{{ if locations }}
+    {{ locations }}  
+        {{ project_location =  title }}
+    {{ /locations }}
+{{ endif }}
+
+{{ if location_area }}
+    {{ project_location = location_area+ ', ' + project_location }}
+{{ endif }}
+
+{{# color-item-lightblue color-item-blue color-item-darkblue color-item-pink color-item-yellow color-item-orange color-item-orange color-item-green #}}
+
+<main id="content"
+    class="outer-grid" 
+    x-data
+>
+
+    <header class="fluid-container grid md:grid-cols-12 gap-4 w-full h-screen p-0">
+        <div class="
+            max-w-none
+            md:col-span-9
+            md:col-start-2
+        ">
+            {{ partial:typography/h1 
+                :content="broken_title ?? title" 
+                :class="header_class" 
+            }}
+        </div>
+        <div class="
+            max-w-none
+            md:col-span-1
+            md:col-start-12
+            relative
+        ">
+            <a href="/{{collection.handle}}" >
+                {{ partial:icons/arrow
+                    svg_size="55"
+                    svg_class="group fill-none hover:bg-blue rotate-[90deg] absolute right-10 top-10 z-1"
+                    circle_class="stroke-blue"
+                    path_class="stroke-blue group-hover:stroke-white" 
+                }} 
+            </a>
+        </div>        
+
+        {{  partial:components/image
+            :image="image"
+            image_sizes="(min-width: 1280px) 50px, (min-width: 768px) 50vw"
+            figure_class="w-full max-w-none md:col-span-12 p-0 h-full -z-10 !absolute top-0"
+            ratio="3/2"
+        }}
+    </header>
+    
+    
+    <section id="subtitle" 
+        class="fluid-container 
+            pt-8 pb-8 
+            grid gap-4 md:grid-cols-12 
+            {{ subtitle_class }}
+        "
+    >
+
+        <ul class="md:col-span-2 md:col-start-2">
+            <li id="architect" 
+                class="mb-4"
+            >
+                {{ partial:typography/p 
+                    as="span"
+                    content="Architect"
+                    color="text-blue" 
+                }}
+                {{ partial:typography/p 
+                    :content="project_architect" 
+                    class="" 
+                }}
+            </li>
+            <li id="location" 
+                class="mb-4"
+            >
+                {{ partial:typography/p 
+                    as="span"
+                    content="Location"
+                    color="text-blue"  
+                }}
+                {{ partial:typography/p 
+                    :content="project_location" 
+                    class="" 
+                }}
+            </li>
+            <li id="team" 
+                class="mb-4"
+            >
+                {{ partial:typography/p 
+                    as="span"
+                    content="Costructure Team"
+                    color="text-blue"  
+                }}
+                {{ partial:typography/p 
+                    :content="project_team" 
+                    class="" 
+                }}
+            </li>
+            <li id="services" 
+                class="mb-4"
+            >
+                {{ partial:typography/p 
+                    as="span"
+                    content="Services"
+                    color="text-blue"  
+                }}
+                {{ partial:typography/p 
+                    :content="project_services" 
+                    class="" 
+                }}
+            </li>
+            <li id="sector" 
+                class="mb-4"
+            >
+                {{ partial:typography/p 
+                    as="span"
+                    content="Sector"
+                    color="text-blue"  
+                }}
+                {{ partial:typography/p 
+                    :content="project_sector" 
+                    class="" 
+                }}
+            </li>
+        </ul>
+        
+        <div id="subtitle"
+            class="
+                max-w-none
+                md:col-start-5
+                md:col-span-8
+            ">
+            {{ subtitle }} 
+        </div>
+
+    </section>
+
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+
+</main>
+<!-- /projects/show.antlers.html -->
