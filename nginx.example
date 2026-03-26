@@ -1,0 +1,28 @@
+# beta.constructure.tm-studio.co.uk NGINX as server
+server {
+    listen 80;
+    listen [::]:80;
+    server_name beta.constructure.tm-studio.co.uk;
+
+    root /data/webs/constructure/statamic/public;
+    index index.php index.html;
+    client_max_body_size 50m;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /data/webs/constructure/statamic/public$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT /data/webs/constructure/statamic/public;
+        fastcgi_pass 127.0.0.1:8454;
+        fastcgi_read_timeout 300;
+    }
+
+    location ~* \.(css|js|jpg|jpeg|png|gif|svg|webp|ico|woff|woff2|ttf)$ {
+        expires 7d;
+        access_log off;
+        try_files $uri =404;
+    }
+}

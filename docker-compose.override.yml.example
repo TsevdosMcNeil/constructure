@@ -1,0 +1,10 @@
+# docker-compose.override.yml
+services:
+  statamic:
+    ports:
+      - "127.0.0.1:${STATAMIC_SSL_PORT}:9000"   # Statamic behind NGINX, 9000 is becasue the statamic container speaks FastCGI, not HTTP (80).
+  node:
+    ports: [] # stop exposing the Vite port, Vite server is not needed in staging
+  # Remove/disable Caddy in staging (NGINX handles TLS)
+  caddy:
+    profiles: ["local-only"] # Caddy only starts when that profile is activated (so it's disabled in remote)
