@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.6.2] - 2026-04-27
+
+### Added
+
+- Imagick to Docker PHP image
+
 ## [0.6.1] - 2026-04-27
 
 ### Updated

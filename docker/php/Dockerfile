@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev libicu-dev \
     libpng-dev libjpeg62-turbo-dev libwebp-dev libfreetype6-dev \
     libzip-dev \
+    libmagickwand-dev \
  && rm -rf /var/lib/apt/lists/*
  
 # ---- PHP extensions commonly required by Statamic/Laravel ---- #
@@ -14,10 +15,10 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
   && docker-php-ext-install -j"$(nproc)" gd intl mbstring zip exif opcache bcmath
 
-# (Optional) Imagick — comment these if you don’t need it to keep image small
-# RUN apk add --no-cache imagemagick imagemagick-dev \
-#   && pecl install imagick \
-#   && docker-php-ext-enable imagick
+# ---- Install Imagick ---- #
+RUN pecl install imagick \
+  && docker-php-ext-enable imagick
+
 
 # Composer
 ENV COMPOSER_HOME=/tmp/composer
