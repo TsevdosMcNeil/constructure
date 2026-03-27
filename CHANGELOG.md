@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.6.1] - 2026-04-27
+
+### Updated
+
+- Statamic and add-ons
+
 ## [0.6.0] - 2026-04-26
 
 ### Added

@@ -14,10 +14,11 @@ server {
 
     location ~ \.php$ {
         include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /data/webs/constructure/statamic/public$fastcgi_script_name;
-        fastcgi_param DOCUMENT_ROOT /data/webs/constructure/statamic/public;
+        fastcgi_param SCRIPT_FILENAME /var/www/html/public$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT /var/www/html/public;
         fastcgi_pass 127.0.0.1:8454;
         fastcgi_read_timeout 300;
+        try_files $uri =404;
     }
 
     location ~* \.(css|js|jpg|jpeg|png|gif|svg|webp|ico|woff|woff2|ttf)$ {

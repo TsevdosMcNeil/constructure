@@ -77,6 +77,8 @@ yarn-error.log
 *.rar
 *.tar
 *.zip
+*.tgz
+
 
 # ignore files that a local computer might use for its own convenience
 .DS_Store
