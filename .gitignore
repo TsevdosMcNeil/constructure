@@ -144,7 +144,7 @@ public/1n7h0.php
 
 
 # Livewire files (ignore unless the livewire config is needed in remote server)
-/statamic/config/livewire.php
+# /statamic/config/livewire.php
 /statamic/public/vendor/livewire/
 /statamic/resources/views/vendor/livewire/
 
