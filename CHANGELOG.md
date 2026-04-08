@@ -12,19 +12,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
-## [0.6.2] - 2026-04-27
+## [0.6.3] - 2026-04-08
+
+### Fixed
+
+- [Project Page: Grid](https://app.asana.com/1/355454733208534/project/1205622176938607/task/1213969238465128)
+
+## [0.6.2] - 2026-03-27
 
 ### Added
 
 - Imagick to Docker PHP image
 
-## [0.6.1] - 2026-04-27
+## [0.6.1] - 2026-03-27
 
 ### Updated
 
 - Statamic and add-ons
 
-## [0.6.0] - 2026-04-26
+## [0.6.0] - 2026-03-26
 
 ### Added
 
