@@ -1,0 +1,28 @@
+{
+  "resources/css/site.css": {
+    "file": "assets/site-43588679.css",
+    "isEntry": true,
+    "src": "resources/css/site.css"
+  },
+  "resources/fonts/ConstructureSans/ConstructureSans-Regular.eot": {
+    "file": "assets/ConstructureSans-Regular-e3743cb6.eot",
+    "src": "resources/fonts/ConstructureSans/ConstructureSans-Regular.eot"
+  },
+  "resources/fonts/ConstructureSans/ConstructureSans-Regular.svg": {
+    "file": "assets/ConstructureSans-Regular-4b475bf9.svg",
+    "src": "resources/fonts/ConstructureSans/ConstructureSans-Regular.svg"
+  },
+  "resources/fonts/ConstructureSans/ConstructureSans-Regular.woff": {
+    "file": "assets/ConstructureSans-Regular-31cd5fd4.woff",
+    "src": "resources/fonts/ConstructureSans/ConstructureSans-Regular.woff"
+  },
+  "resources/fonts/ConstructureSans/ConstructureSans-Regular.woff2": {
+    "file": "assets/ConstructureSans-Regular-ac9347cb.woff2",
+    "src": "resources/fonts/ConstructureSans/ConstructureSans-Regular.woff2"
+  },
+  "resources/js/site.js": {
+    "file": "assets/site-daf06e6c.js",
+    "isEntry": true,
+    "src": "resources/js/site.js"
+  }
+}

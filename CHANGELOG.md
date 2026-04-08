@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - [Project Page: Grid](https://app.asana.com/1/355454733208534/project/1205622176938607/task/1213969238465128)
 
+
+### Added
+
+ - Compiled files
+
 ## [0.6.2] - 2026-03-27
 
 ### Added
