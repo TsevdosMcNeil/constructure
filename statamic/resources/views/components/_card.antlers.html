@@ -32,7 +32,7 @@
 <article id="{{ card_slug }}" 
     x-data="{ shown_card : false }" 
     x-intersect.once="shown_card = true;"
-    class="opacity-0 mobile-only:mb-6 {{ card_class }}"
+    class="opacity-0 mb-6 md:mb-0 {{ card_class }}"
     :class="shown_card ? 'animate-appearsin' : ''" 
 >
 
@@ -77,7 +77,7 @@
         {{ switch(
             (card_caption_hposition == 'prev') => 'order-first md:pr-4 flex',
             (card_caption_hposition == 'next') => 'md:pl-4 flex',
-            (card_caption_hposition == 'below') => 'relative',
+            (card_caption_hposition == 'below') => 'md:relative',
             () => ''
         ) }}
         {{ switch(
@@ -90,10 +90,7 @@
             card_caption_content  
             whitespace-nowrap 
             {{ if card_caption_hposition == 'below' }}
-                pt-4
-                {{ if card_caption_floating }}
-                    absolute
-                {{/if}}
+                pt-4 {{ if card_caption_floating }}md:absolute{{/if}}
             {{/if}}
             ">
             {{ partial src="components/text"
