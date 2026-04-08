@@ -216,9 +216,10 @@ Caddyfile
 
 
 
-# track favicon and logo if they exist
+# track build, favicon and logo if they exist
 !statamic/public/
 statamic/public/*
+!statamic/public/build/
 !statamic/public/visuals/
 statamic/public/visuals/*
 !statamic/public/visuals/constructure-logo.svg
