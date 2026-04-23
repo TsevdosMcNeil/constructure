@@ -141,6 +141,7 @@
             }}
 
             <ul class="flex flex-col group mt-20 submenu">
+              {{ if nav:submenu }}
                 {{ nav:submenu }}
                 <li><a href="{{ url }}" 
                         class="group
@@ -173,6 +174,7 @@
                     ">{{ title }}</span>
                 </a></li>
                 {{ /nav:submenu }}
+              {{ endif }}
             </ul>
             
             
