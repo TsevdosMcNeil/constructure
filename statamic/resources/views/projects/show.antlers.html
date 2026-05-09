@@ -114,6 +114,7 @@
     >
 
         <ul class="md:col-span-2 md:col-start-2">
+          {{ if project_architect }}
             <li id="architect" 
                 class="mb-4"
             >
@@ -127,6 +128,8 @@
                     class="" 
                 }}
             </li>
+          {{ endif }}
+          {{ if project_location }}
             <li id="location" 
                 class="mb-4"
             >
@@ -140,12 +143,14 @@
                     class="" 
                 }}
             </li>
+          {{ endif }}
+          {{ if project_team }}
             <li id="team" 
                 class="mb-4"
             >
                 {{ partial:typography/p 
                     as="span"
-                    content="Costructure Team"
+                    content="Team"
                     color="text-blue"  
                 }}
                 {{ partial:typography/p 
@@ -153,6 +158,53 @@
                     class="" 
                 }}
             </li>
+          {{ endif }}
+          {{ if project_mep }}
+            <li id="team" 
+                class="mb-4"
+            >
+                {{ partial:typography/p 
+                    as="span"
+                    content="MEP"
+                    color="text-blue"  
+                }}
+                {{ partial:typography/p 
+                    :content="project_mep" 
+                    class="" 
+                }}
+            </li>
+          {{ endif }}
+          {{ if project_contractor }}
+            <li id="team" 
+                class="mb-4"
+            >
+                {{ partial:typography/p 
+                    as="span"
+                    content="Contractor"
+                    color="text-blue"  
+                }}
+                {{ partial:typography/p 
+                    :content="project_contractor" 
+                    class="" 
+                }}
+            </li>
+          {{ endif }}
+          {{ if project_qs }}
+            <li id="team" 
+                class="mb-4"
+            >
+                {{ partial:typography/p 
+                    as="span"
+                    content="QS"
+                    color="text-blue"  
+                }}
+                {{ partial:typography/p 
+                    :content="project_qs" 
+                    class="" 
+                }}
+            </li>
+          {{ endif }}
+          {{ if project_services }}
             <li id="services" 
                 class="mb-4"
             >
@@ -166,6 +218,8 @@
                     class="" 
                 }}
             </li>
+          {{ endif }}
+          {{ if project_sector }}
             <li id="sector" 
                 class="mb-4"
             >
@@ -179,6 +233,7 @@
                     class="" 
                 }}
             </li>
+          {{ endif }}
         </ul>
         
         <div id="subtitle"

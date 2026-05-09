@@ -11,13 +11,7 @@ tabs:
             field:
               type: textarea
               required: true
-              antlers: false
               display: Title
-              icon: textarea
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               validate:
                 - required
               width: 75
@@ -32,15 +26,8 @@ tabs:
             handle: broken_title
             field:
               type: textarea
-              antlers: false
               display: 'Broken Title'
-              icon: textarea
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
               width: 75
-              replicator_preview: true
           -
             handle: subtitle
             field: common.text_rich
@@ -79,16 +66,9 @@ tabs:
           -
             handle: hide_in_projects_index
             field:
-              default: false
               type: toggle
               display: 'Hide in projects index'
-              icon: toggle
               instructions: 'Click here to prevent this project from being visible in the project grid.'
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
               width: 75
           -
             handle: grid_file_type
@@ -99,13 +79,7 @@ tabs:
               default: image
               type: button_group
               display: 'Grid File Type'
-              icon: button_group
               width: 25
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
               validate:
                 - required
           -
@@ -160,13 +134,7 @@ tabs:
               default: below
               type: button_group
               display: 'Caption horizontal position'
-              icon: button_group
               width: 50
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
           -
             handle: grid_caption_vposition
             field:
@@ -176,13 +144,7 @@ tabs:
               default: top
               type: button_group
               display: 'Caption Vertical Position'
-              icon: button_group
               width: 50
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
               if:
                 grid_caption_hposition: 'not below'
   seo:
@@ -229,11 +191,9 @@ tabs:
             field:
               type: slug
               localizable: true
-              generate: true
-              listable: hidden
-              display: Slug
               validate:
                 - required
+              display: Slug
           -
             handle: date
             field:
@@ -244,14 +204,8 @@ tabs:
               validate:
                 - required
               display: Date
-              mode: single
-              time_enabled: false
               time_required: false
               earliest_date: '2021-01-01'
-              full_width: false
-              inline: false
-              columns: 1
-              rows: 1
           -
             handle: image
             field: common.image
@@ -269,13 +223,12 @@ tabs:
                 - locations
               display: Location
               mode: select
-              instructions_position: above
-              listable: hidden
-              visibility: visible
               max_items: 1
-              create: true
-              hide_display: false
-              replicator_preview: true
+          -
+            handle: location_area
+            field:
+              type: text
+              display: 'Location Area'
           -
             handle: sectors
             field:
@@ -284,13 +237,7 @@ tabs:
                 - sectors
               display: Sector
               mode: select
-              instructions_position: above
-              listable: hidden
-              visibility: visible
               max_items: 1
-              create: true
-              hide_display: false
-              replicator_preview: true
           -
             handle: expertises
             field:
@@ -300,63 +247,41 @@ tabs:
               display: Expertise
               mode: select
               max_items: 1
-              create: true
-              icon: taxonomy
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
           -
             handle: project_architect
             field:
-              input_type: text
-              antlers: false
               type: text
               display: Arquitect
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
-              replicator_preview: true
           -
             handle: project_team
             field:
-              input_type: text
-              antlers: false
               type: text
-              display: 'Constructure Team'
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
-              replicator_preview: true
+              display: Team
+          -
+            handle: project_mep
+            field:
+              type: text
+              display: MEP
+          -
+            handle: project_contractor
+            field:
+              type: text
+              display: Contractor
+          -
+            handle: project_qs
+            field:
+              type: text
+              display: QS
           -
             handle: project_services
             field:
-              antlers: false
               type: textarea
               display: Services
-              icon: textarea
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
           -
             handle: project_date
             field:
-              input_type: text
-              antlers: false
               type: text
               display: 'Project Date'
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              hide_display: false
           -
             import: related_entry
             prefix: bottom_

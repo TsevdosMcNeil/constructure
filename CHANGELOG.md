@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.6.5] - 2026-05-09
+
+### Updated
+
+- [Project Details](https://app.asana.com/1/355454733208534/project/1205622176938607/task/1214525808850910)
+
+
 ## [0.6.4] - 2026-04-23
 
 ### Updated
