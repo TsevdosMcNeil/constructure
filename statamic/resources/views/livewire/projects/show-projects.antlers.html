@@ -106,17 +106,21 @@
             {{/if}}
 
             {{ location_title = '' }}
-            {{ locations }}
-                {{ location_title += title + ',' }}
-            {{ /locations }}
-            {{ location_title = location_title | substr(0, -1) }}
+            {{ if locations }}
+              {{ locations }}
+                  {{ location_title += title + ',' }}
+              {{ /locations }}
+              {{# location_title = location_title | substr(0, -1) #}}
+              {{ location_title = '<span>'+ (location_title | substr(0, -1)) + '</span><br/>' }}
+            {{ /if }}
 
-            {{ grid_caption = '
-                <p>
-                    <span class="text-blue">'+ title + '</span><br/>
-                    <span>'+ location_title + '</span><br/>
-                    <span>'+ arquitect + '</span>
-                </p>' }}
+            {{ arquitect_name = '' }}
+            {{ if arquitect }}
+                {{ arquitect_name += '<span>'+ arquitect + '</span>' }}
+            {{/if}}
+
+
+            {{ grid_caption = '<p><span class="text-blue">'+ title + '</span><br/>'+ location_title +  arquitect_name + '</p>' }}
 
 
             <div class="

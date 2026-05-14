@@ -38,37 +38,37 @@
 
 
     <div class="relative
-            {{ switch(
-                (card_caption_hposition == 'prev') => 'order-last w-full',
-                (card_caption_hposition == 'next') => 'w-full',
-                (card_caption_hposition == 'below') => '',
-                () => ''
-            ) }}"
+      {{ switch(
+        (card_caption_hposition == 'prev') => 'order-last w-full',
+        (card_caption_hposition == 'next') => 'w-full',
+        (card_caption_hposition == 'below') => '',
+        () => ''
+      ) }}"
     >
     {{ if card_image }}
         {{  partial:components/image
-            :image="card_image"
-            :orientation="card_orientation"
-            :figure_class="card_hover_image ? 'group-hover:opacity-0 transition-opacity' : ''"
-            caption=""
+          :image="card_image"
+          :orientation="card_orientation"
+          :figure_class="card_hover_image ? 'group-hover:opacity-0 transition-opacity' : ''"
+          caption=""
         }}
         {{ if card_hover_image }}
-            {{  partial:components/image
-                :image="card_hover_image"
-                :orientation="card_orientation"
-                figure_class="!absolute 
-                    top-0 left-0
-                    opacity-0 
-                    group-hover:opacity-100
-                    transition-opacity"
-            }}
+          {{  partial:components/image
+            :image="card_hover_image"
+            :orientation="card_orientation"
+            figure_class="!absolute 
+                top-0 left-0
+                opacity-0 
+                group-hover:opacity-100
+                transition-opacity"
+          }}
         {{/if}}
     {{ elseif card_embed_video }}
         {{  partial:components/video 
-            :video_url="card_embed_video" 
-            video_autoplay="true"
-            video_loop="true"
-            wrapper_class="mb-3"
+          :video_url="card_embed_video" 
+          video_autoplay="true"
+          video_loop="true"
+          wrapper_class="mb-3"
         }}
     {{ /if }}
     </div>
