@@ -59,7 +59,11 @@
 {{ endif }}
 
 {{ if location_area }}
+  {{ if project_location }}
     {{ project_location = location_area+ ', ' + project_location }}
+  {{ else }}
+    {{ project_location = location_area }}
+  {{ endif }}
 {{ endif }}
 
 {{# color-item-lightblue color-item-blue color-item-darkblue color-item-pink color-item-yellow color-item-orange color-item-orange color-item-green #}}
