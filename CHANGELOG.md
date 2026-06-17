@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+
+## [0.6.7] - 2026-06-17
+
+### Updated
+
+- [Team Listing](https://app.asana.com/1/355454733208534/project/1205622176938607/task/1215750729569867) - Team field updated from textfield to textarea
+
+
+
+
 ## [0.6.6] - 2026-05-14
 
 ### Updated

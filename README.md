@@ -3,7 +3,7 @@
 A Statamic website for [Constructure](https://beta.constructure.tm-studio.co.uk/) based in [Statamic Starter Kit](https://github.com/pablorica/statamic_starter_kit) . It is containerized with Docker for consistent local development and easy deployment to any environment.
 
 
-[![version](https://img.shields.io/badge/version-0.6.6-pink.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.6.7-pink.svg)](https://semver.org)
 
 
 

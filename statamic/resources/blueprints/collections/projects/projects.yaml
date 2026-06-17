@@ -255,7 +255,7 @@ tabs:
           -
             handle: project_team
             field:
-              type: text
+              type: textarea
               display: Team
           -
             handle: project_mep
