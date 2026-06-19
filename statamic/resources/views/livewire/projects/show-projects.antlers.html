@@ -115,9 +115,9 @@
             {{ /if }}
 
             {{ arquitect_name = '' }}
-            {{ if arquitect }}
-                {{ arquitect_name += '<span>'+ arquitect + '</span>' }}
-            {{/if}}
+            {{# if arquitect #}}
+                {{# arquitect_name += '<span>'+ arquitect + '</span>' #}}
+            {{#/if#}}
 
 
             {{ grid_caption = '<p><span class="text-blue">'+ title + '</span><br/>'+ location_title +  arquitect_name + '</p>' }}
@@ -168,7 +168,7 @@
                 <tr class="border-b border-black">
                     <th class="w-1/3 pb-6">Project</th>
                     <th class="pb-6">Location</th>
-                    <th class="pb-6">Architect</th>
+                    <!-- <th class="pb-6">Architect</th> -->
                     <th class="pb-6">Sector</th>
                     <th class="pb-6">Year</th>
                 </tr>

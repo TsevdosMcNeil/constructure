@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ---
 
 
+## [0.6.8] - 2026-06-19
+
+### Updated
+
+- [Project Captions](https://app.asana.com/1/355454733208534/project/1205622176938607/task/1215797400829041) - Remove Architect reference
+
 ## [0.6.7] - 2026-06-17
 
 ### Updated
