@@ -3,7 +3,7 @@
 A Statamic website for [Constructure](https://beta.constructure.tm-studio.co.uk/) based in [Statamic Starter Kit](https://github.com/pablorica/statamic_starter_kit) . It is containerized with Docker for consistent local development and easy deployment to any environment.
 
 
-[![version](https://img.shields.io/badge/version-0.6.8-pink.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.7.0-blue.svg)](https://semver.org)
 
 
 
@@ -35,6 +35,19 @@ wget --user constructure --password tmstudio https://beta.constructure.tm-studio
 ```bash
 wget --user constructure --password tmstudio https://beta.constructure.tm-studio.co.uk/content.tar.gz
 ```
+---
+
+## layout
+
+### Breakpoints
+  
+* `--breakpoint-sm: 640px;`
+* `--breakpoint-md: 768px;`
+* `--breakpoint-lg: 1024px;`
+* `--breakpoint-xl: 1280px;`
+* `--breakpoint-2xl: 1536px;`
+
+---
 
 ## Installation instructions
 

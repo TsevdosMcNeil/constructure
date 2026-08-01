@@ -26,8 +26,8 @@
                 : circle_hover_hide = false
             "
         class="fixed 
-            left-50 
-            top-10 
+            right-4 md:left-50 md:right-auto 
+            top-4 md:top-10 
             z-20 
             focus:outline-none focus-visible:ring-2 ring-primary ring-offset-2 
             leading-none
@@ -74,11 +74,11 @@
         stroke-orange
         stroke-slategrey
     #}}
-    {{ svg_class    = "transition-all w-[55px] fill-none hover:fill-blue" }}
+    {{ svg_class    = "transition-all w-[35px] md:w-[55px] fill-none hover:fill-blue" }}
     {{ circle_class = "transition-all stroke-2 stroke-blue" }}
     {{ stroke_class = "transition-all stroke-2 group-hover:stroke-white stroke-blue" }}
     {{ if header_colour }}
-        {{ svg_class    = "transition-all w-[55px] fill-none hover:fill-" + header_colour }}
+        {{ svg_class    = "transition-all w-[35px] md:w-[55px] fill-none hover:fill-" + header_colour }}
         {{ circle_class = "transition-all stroke-2 stroke-" + header_colour }}
         {{ stroke_class = "transition-all stroke-2 group-hover:stroke-white stroke-" + header_colour }}
 
@@ -103,7 +103,7 @@
             : ''
         ">
             {{ partial:icons/close
-                svg_class="w-[55px] fill-none"
+                svg_class="w-[35px] md:w-[55px] fill-none"
                 circle_class="fill-white"
                 line_class="stroke-2 stroke-blue" 
             }} 
@@ -114,10 +114,11 @@
             inset-0 
             fluid-container  
             gap-2 md:grid-cols-12 
-            justify-end bg-blue
+            md:justify-end 
+            bg-blue
             mainmenu 
             hidden
-            py-10
+            py-3 md:py-10
         "
         x-bind:class="
         mobileNavOpen
@@ -127,7 +128,11 @@
                 : ''
         "
     >   
-        <div class="flex py-0 my-0 items-end justify-start md:col-span-4 logo">
+        <div class="flex py-0 my-0 
+          items-start md:items-end 
+          justify-start 
+          md:col-span-4 logo
+          w-[calc(100%-50px)] max-w-[300px] md:w-full md:max-w-[100%]">
             {{ partial:components/logo 
                 width="100%" 
                 color="white" 

@@ -263,20 +263,28 @@ module.exports = {
     plugin(function({ addComponents, theme }) {
         const components = {
           // Overwrites .fluid-container defined in tailwind.config.peak.js
-          '.fluid-container': {
+          '.fluid-container, .container': {
               width: '100%',
               maxWidth: '100%',
               marginLeft: 'auto',
               marginRight: 'auto',
               // Use safe-area-inset together with default padding for Apple devices with a notch.
-              paddingLeft: `calc(env(safe-area-inset-left, 0rem) + ${theme('padding.10')})`,
-              paddingRight: `calc(env(safe-area-inset-right, 0rem) + ${theme('padding.10')})`,
+              paddingLeft: `calc(env(safe-area-inset-left, 0rem) + ${theme('padding.4')})`,
+              paddingRight: `calc(env(safe-area-inset-right, 0rem) + ${theme('padding.4')})`,
           },
           // Overwrites .outer-grid defined in tailwind.config.peak.js
           '.outer-grid': {
               paddingTop: 0,
               paddingBottom: 0,
               rowGap: 0,
+          },
+          '@media screen(md)': {
+            // Larger horizontal padding on larger screens.
+            '.fluid-container , .container': {
+              // Use safe-area-inset together with default padding for Apple devices with a notch.
+              paddingLeft: `calc(env(safe-area-inset-left, 0rem) + ${theme('padding.10')})`,
+              paddingRight: `calc(env(safe-area-inset-right, 0rem) + ${theme('padding.10')})`,
+            }
           },
         }
         addComponents(components)

@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.7.0] - 2026-08-01
+
+### Added
+
+- Mobile version
+
 
 ## [0.6.8] - 2026-06-19
 

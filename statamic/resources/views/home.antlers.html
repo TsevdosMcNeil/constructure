@@ -6,11 +6,17 @@
 <!-- /home.antlers.html -->
 
 <main id="home"
-    class="outer-grid pt-5" 
+    class="outer-grid pt-3 md:pt-5" 
 >
 
-    <header class="fixed -z-10 flex items-center justify-center" style="top:50%; left:0; transform:translateY(-50%); height:0; width:100%">
-        <div class="fluid-container grid gap-2 md:grid-cols-12">
+    <header class="md:fixed -z-10 
+      flex items-center justify-center
+      md:top-[50%] md:left-0 md:translate-y-[-50%] md:h-0
+      w-[calc(100%-50px)] max-w-[calc(300px+2rem)] md:w-full md:max-w-[100%]" 
+    >
+        <div class="fluid-container grid 
+          gap-2 md:grid-cols-12"
+        >
             <div class="md:col-span-12">
                 {{ partial:components/logo 
                     width="100%" 
