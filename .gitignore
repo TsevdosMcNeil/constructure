@@ -238,3 +238,12 @@ statamic/content/*
 statamic/statamic/content/globals/*
 content/globals/*.*
 !statamic/content/globals/collections_settings.yaml
+
+
+# -------------------------
+# Dependabot alerts
+# -------------------------
+
+# Files removed from repository. They were renamed to .orig
+statamic/composer.json
+statamic/package.json

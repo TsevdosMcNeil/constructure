@@ -12,6 +12,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.7.1] - 2026-08-01
+
+### Updated
+
+- Dependabots alerts: Files renamed to remove them from repository
+  - statamic/composer.json --> statamic/composer.json.orig
+  - statamic/package.json --> statamic/package.json.orig
+
 ## [0.7.0] - 2026-08-01
 
 ### Added
