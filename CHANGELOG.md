@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.8.3] - 2026-08-01
+
+### Updated
+
+- Mobile: Lottie animations
+
+
 ## [0.8.2] - 2026-08-01
 
 ### Updated
