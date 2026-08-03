@@ -12,6 +12,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.8.2] - 2026-08-01
+
+### Updated
+
+- [Constructure Mobile – Project Images](https://app.asana.com/1/355454733208534/project/1205622176938607/task/1216652981615531)
+
+
+
 ## [0.8.1] - 2026-08-01
 
 ### Updated
