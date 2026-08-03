@@ -239,8 +239,9 @@
             </div>
 
             <div id="lottieGuide_{{ xid }}" 
-                class="lottieGuide mt-[16vh] md:mt-[100vh]"
-                style="height: calc(1vh * {{ guideHeight }} );"
+                class="lottieGuide md:!mt-[100vh]"
+                style="height: calc(1vh * {{ guideHeight }} );
+                margin-top: {{  guideHeight | divide:5 | floor }}vh"
             ></div>  
 
         </div>
@@ -252,7 +253,8 @@
         </div>
     </div> <!-- End: /wrapperAnimation -->
 
-    <div class="lottieBottom h-[16vh] md:h-[100vh]"></div>
+    <div class="lottieBottom md:!h-[100vh]"
+    style="height: {{ guideHeight | divide:5 | floor }}vh "></div>
     {{ /if }}
 
 </section>
