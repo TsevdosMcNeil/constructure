@@ -73,11 +73,14 @@
     x-data
 >
 
-    <header class="fluid-container grid md:grid-cols-12 gap-4 w-full h-screen p-0">
+    <header class="fluid-container grid grid-cols-6 md:grid-cols-12 
+      gap-4 h-screen p-0 w-full">
         <div class="
-            max-w-none
-            md:col-span-9
-            md:col-start-2
+          col-span-5
+          md:col-span-9
+          md:col-start-2
+          py-2 pl-4 pr-6 md:p-0
+          max-w-none
         ">
             {{ partial:typography/h1 
                 :content="broken_title ?? title" 
@@ -86,14 +89,17 @@
         </div>
         <div class="
             max-w-none
-            md:col-span-1
+            col-span-1
             md:col-start-12
             relative
         ">
             <a href="/{{collection.handle}}" >
                 {{ partial:icons/arrow
                     svg_size="55"
-                    svg_class="group fill-none hover:bg-blue rotate-[90deg] absolute right-10 top-10 z-1"
+                    svg_class="group fill-none hover:bg-blue 
+                      rotate-[90deg] absolute z-1 
+                      right-[3.25rem] md:right-10 top-4 md:top-10 
+                      w-[35px] md:w-[55px] h-[35px] md:h-[55px]"
                     circle_class="stroke-blue"
                     path_class="stroke-blue group-hover:stroke-white" 
                 }} 

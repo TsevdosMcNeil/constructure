@@ -12,7 +12,7 @@
     {{ if header_colour }}
         {{ header_class_colour = " text-" + header_colour  }}
     {{/if}}
-    <div class="fluid-container grid gap-2 md:grid-cols-12">
+    <div class="fluid-container grid gap-2 md:grid-cols-12 pt-2 md:pt-0">
         <header class="md:col-span-6 md:col-start-7">
             {{ partial:typography/h1 
                 :content="broken_title ?? title" 

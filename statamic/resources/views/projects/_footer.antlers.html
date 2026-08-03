@@ -18,9 +18,7 @@
     :class="footer_class"
 >
 <div class="footer-wrapper 
-        fixed 
-        pt-0 
-        z-30
+        fixed pt-2 md:pt-0 z-30
         w-full
         bg-orange
         before:absolute
@@ -56,7 +54,9 @@
             </div>
 
             <section id="" 
-                class="fluid-container grid gap-0 md:grid-cols-12 pt-8"
+              class="fluid-container 
+                grid gap-0 md:grid-cols-12 
+                pt-12 md:pt-8"
             >
 
                 {{ taxonomies = ['sectors', 'expertises'] }}
@@ -75,7 +75,7 @@
                     </div>
 
                 </div>
-                <div class="md:col-span-1" >
+                <div class="md:col-span-1 pt-2 md:pt-0" >
                     <ul class="flex items-stretch justify-between max-w-[80px]">
                         <li role="button" 
                             class="cursor-pointer text-white"

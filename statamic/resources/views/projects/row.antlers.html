@@ -38,16 +38,16 @@
         {{ /if }}
         </a>
     </td>
-    <td><a href="{{ row_link }}">{{ partial:typography/p 
+    <td class="mobile-only:hidden"><a href="{{ row_link }}">{{ partial:typography/p 
         :content="row_location" 
     }}</a></td>
     <!-- <td><a href="{{# row_link #}}">{{# partial:typography/p 
         :content="row_architect" 
     #}}</a></td> -->
-    <td><a href="{{ row_link }}">{{ partial:typography/p 
+    <td class="mobile-only:hidden"><a href="{{ row_link }}">{{ partial:typography/p 
         :content="row_sector" 
     }}</a></td>
-    <td><a href="{{ row_link }}">{{ partial:typography/p 
+    <td class="mobile-only:hidden"><a href="{{ row_link }}">{{ partial:typography/p 
         :content="row_year" 
     }}</a></td>
 </tr>

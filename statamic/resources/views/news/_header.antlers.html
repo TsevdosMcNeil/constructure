@@ -5,16 +5,24 @@
 
 <!-- /news/_header.antlers.html -->
 
-<header class="fluid-container grid gap-4 md:grid-cols-12 pt-5 pb-5">
+<header class="fluid-container 
+  grid gap-2 md:gap-4
+  grid-cols-6 md:grid-cols-12 
+  md:py-5">
     <div class="
         max-w-none
-        md:col-span-1
+        col-start-6
+        col-span-1
+        md:col-start-1
         relative
     ">
         <a href="/journal" >
             {{ partial:icons/arrow
                 svg_size="55"
-                svg_class="group fill-none hover:bg-green rotate-[90deg] absolute left-[75px] top-[22px] z-1"
+                svg_class="group fill-none hover:bg-green rotate-[90deg] 
+                  absolute z-1
+                  right-[2.25rem] md:right-auto md:left-[75px] top-4 md:top-[22px]
+                  w-[35px] md:w-[55px] h-[35px] md:h-[55px]"
                 circle_class="stroke-green"
                 path_class="stroke-green group-hover:stroke-white" 
             }} 
@@ -22,15 +30,15 @@
     </div>
     <div class="
         max-w-none
-        md:col-span-9
-        md:col-start-4
-        mb-24
+        col-span-5 col-start-1
+        md:col-span-9 md:col-start-4
+        mb-3 md:mb-24
         animate-appearsin opacity-0
     ">
         {{ partial:typography/h1 
             as="h4" 
             :content="broken_title ?? title" 
-            class="text-left" 
+            class="text-left pr-4 md:pr-0" 
             color="text-green"
         }}
 
@@ -47,20 +55,18 @@
     {{  partial:components/image
         :image="image"
         figure_class="mb-24
-            md:col-span-9
-            md:col-start-4
-            animate-appearsin opacity-0"
+          col-span-6 md:col-span-9
+          col-start-1 md:col-start-4
+          animate-appearsin opacity-0"
         ratio="3/2"
     }}
 
-    <ul class="
-            md:col-span-2 
-            md:col-start-2
-            opacity-0
-        "
-        x-data="{shown_meta: false}" 
-        x-intersect.once="shown_meta = true;"
-        :class="shown_meta ? 'animate-appearsin' : '';" 
+    <ul class="col-span-6 md:col-span-2 
+        col-start-1 md:col-start-2
+        opacity-0"
+      x-data="{shown_meta: false}" 
+      x-intersect.once="shown_meta = true;"
+      :class="shown_meta ? 'animate-appearsin' : '';" 
     >
         <li id="date" 
             class="mb-4"
@@ -93,15 +99,15 @@
         </li>
     </ul>
 
-    <div class="mb-24
-            max-w-none
-            md:col-span-9
-            md:col-start-4
-            opacity-0
-        "
-        x-data="{shown_summary: false}" 
-        x-intersect.once="shown_summary = true;"
-        :class="shown_summary ? 'animate-appearsin ' : '';" 
+    <div class="mb-2 md:mb-24
+        max-w-none
+        col-span-6 md:col-span-9
+        col-start-1 md:col-start-4
+        opacity-0
+      "
+      x-data="{shown_summary: false}" 
+      x-intersect.once="shown_summary = true;"
+      :class="shown_summary ? 'animate-appearsin ' : '';" 
     >
         {{ new_summary }}
     </div>

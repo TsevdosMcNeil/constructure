@@ -108,7 +108,7 @@ module.exports = {
                 opacity: 0,
                 transform: 'translateY(20px)',
             }
-        }, 
+        },
         menuIn: {
             '0%': { 
                 opacity: 0,

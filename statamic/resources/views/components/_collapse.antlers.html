@@ -72,25 +72,27 @@
 
 
     {{ html_class = class + ' 
-        pt-6
-        mb-6
+        pt-2 md:pt-6 mb-6
         cursor-pointer 
         group 
         border-t border-black 
-        grid gap-4 md:grid-cols-12'
+        grid gap-4 grid-cols-6 md:grid-cols-12'
     }}
     {{ svg_class = ' 
         float-right
         fill-none
+        w-[35px] md:w-[55px] h-[35px] md:h-[55px]
         group-hover:bg-'+html_hover_colour
     }}
     {{ circle_class = 'stroke-' + html_hover_colour }}
     {{ path_class = 'stroke-' + html_hover_colour + '
         group-hover:stroke-white'
     }}
-    {{ title_class = 'md:col-span-5
-        text-' + html_colour  + '        
-        group-hover:text-'+html_hover_colour
+    {{ title_class = 'col-span-5 md:col-span-5 
+      pt-2 md:pt-0
+      pr-3 md:pr-0
+      text-' + html_colour  + '        
+      group-hover:text-'+html_hover_colour
     }}
     
 
@@ -137,16 +139,17 @@
                 :class="title_class"
             }}
 
-            <div class="md:col-span-4">
+            <div class="col-span-6 md:col-span-4 order-[3]">
                 <div x-show="expanded[{{ collapse_int}}]"
                     x-collapse
                     x-bind:class="{'opened' : expanded[{{ collapse_int}}] && showOverflow }"
-                    class="py-0 pl-8"
+                    class="py-0 md:pl-8"
                 >{{ collapse_column }}</div>
             </div>
 
-            <div class="md:col-start-12 md:col-span-1">
-                <span class="inline-block transition-all" 
+            <div class="col-span-1 md:col-start-12
+            order-[2] md:order-last">
+                <span class="inline-block transition-all ml-[-1.75rem] md:ml-0" 
                     x-bind:class="{'rotate-[180deg]' : expanded[{{ collapse_int}}]  }"
                 >
                     {{ partial:icons/arrow
