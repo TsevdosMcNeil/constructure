@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.8.4] - 2026-08-06
+
+### Fixed
+
+- [Constructure Footer – Practice page](https://app.asana.com/1/355454733208534/project/1205622176938607/task/1217146292057023)
+- 
+
 ## [0.8.3] - 2026-08-01
 
 ### Updated

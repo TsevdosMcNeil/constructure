@@ -17,17 +17,17 @@
     bg-slategrey
     bg-white
 #}}
-{{ figure_colour = 'bg-blue' }}
+{{ card_figure_colour = 'bg-blue' }}
 {{ if memberprofile_bg_colour}} 
-    {{ figure_colour = 'bg-'+memberprofile_bg_colour }}
+    {{ card_figure_colour = 'bg-'+memberprofile_bg_colour }}
 {{ endif }}
 
-{{ figure_class = figure_colour }}
+{{ card_figure_class = card_figure_colour }}
 {{ if memberprofile_hover_image }} 
-    {{ figure_class .= ' opacity-1 group-hover:opacity-0 transition-opacity'}}
+    {{ card_figure_class .= ' opacity-1 group-hover:opacity-0 transition-opacity'}}
 {{ endif }}
 
-{{ figure_hover_class = figure_colour + " 
+{{ card_figure_hover_class = card_figure_colour + " 
     !absolute 
     w-full
     top-0 left-0
@@ -41,14 +41,14 @@
         :image="memberprofile_image"
         image_sizes="100vw, (min-width: 768px) 50vw"
         ratio="2/3"
-        :figure_class="figure_class"
+        :figure_class="card_figure_class"
     }}
     {{ if memberprofile_hover_image }}
         {{  partial:components/image
             :image="memberprofile_hover_image"
             image_sizes="100vw, (min-width: 768px) 50vw"
             ratio="2/3"
-            :figure_class="figure_hover_class"
+            :figure_class="card_figure_hover_class"
         }}
     {{ endif }}
 
