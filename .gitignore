@@ -113,6 +113,10 @@ yarn.lock
 composer.phar
 public/1n7h0.php
 
+# Ignore patch files 
+*.patch
+
+
 # -------------------------
 # Statamic Specific
 # -------------------------

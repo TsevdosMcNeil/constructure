@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.8.5] - 2026-11-25
+
+### Fixed
+
+- Taxonomy titles in the projects filter list and footer now come from the taxonomy config instead of the handle (e.g. "Expertises" is now "Expertise")
+
 ## [0.8.4] - 2026-08-06
 
 ### Fixed
