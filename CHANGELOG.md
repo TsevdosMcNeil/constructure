@@ -12,6 +12,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.10.0] - 2026-11-25
+
+### Added
+
+- Constructure "Indicative Sizing" tool (the client's installable web app) hosted as static files at `/sizing/` (`statamic/public/sizing/`). Its service worker is scoped to `/sizing/` only, so it does not affect the rest of the site.
+- `.gitignore` now tracks `statamic/public/sizing/`.
+- Route redirecting `/sizing` and `/sizing/` to `/sizing/index.html`, for servers that don't serve a folder's `index.html` (e.g. the local Caddy setup).
+
 ## [0.9.0] - 2026-11-25
 
 ### Added

@@ -34,3 +34,8 @@ Route::statamic('/feed/projects',
         'content_type' => 'application/xml',
     ]
 );
+
+// The client's indicative sizing tool is a static app in public/sizing/.
+// Some servers (e.g. Caddy's php_fastcgi) don't serve index.html for a folder,
+// so send /sizing and /sizing/ straight to the app's file.
+Route::redirect('/sizing', '/sizing/index.html');

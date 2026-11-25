@@ -230,6 +230,9 @@ statamic/public/visuals/*
 !statamic/public/visuals/constructure-logo.svg
 !statamic/public/favicons/
 
+# Client's indicative sizing tool (static PWA, served at /sizing/)
+!statamic/public/sizing/
+
 
 # track peak image, if it exists
 #!statamic/public/images/a-peak.jpg
