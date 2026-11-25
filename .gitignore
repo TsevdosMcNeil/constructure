@@ -188,11 +188,12 @@ Caddyfile
 !.browserslist
 !README.md
 !CHANGELOG.md
-# -- sometimes these files won't be ignored becuse
-# -- they are needed for DO app
-# !package-lock.json
-# !composer.lock
 
+## Scaffolding files
+!package.json
+!package-lock.json
+!composer.json
+!composer.lock
 
 # Migration files
 !*.sql.gz
@@ -249,5 +250,5 @@ content/globals/*.*
 # -------------------------
 
 # Files removed from repository. They were renamed to .orig
-statamic/composer.json
-statamic/package.json
+#statamic/composer.json
+#statamic/package.json
