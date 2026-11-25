@@ -3,7 +3,7 @@
 A Statamic website for [Constructure](https://beta.constructure.tm-studio.co.uk/) based in [Statamic Starter Kit](https://github.com/pablorica/statamic_starter_kit) . It is containerized with Docker for consistent local development and easy deployment to any environment.
 
 
-[![version](https://img.shields.io/badge/version-0.9.0-blue.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.10.0-blue.svg)](https://semver.org)
 
 
 
@@ -854,6 +854,19 @@ You can use the `{{ instagram:feed }}` tag to fetch media from the API and retur
 
 ---
 
+
+## Indicative Sizing tool (`/sizing`)
+
+A client-built, installable web app (PWA) for early-feasibility structural sizing. Visitors choose a material, structural system, span and load, and get an indicative depth range with a section sketch. It can email, copy or download the result, and works offline once loaded. It is indicative only, not a design.
+
+- **Files:** `statamic/public/sizing/` (static HTML, manifest, service worker, icons), tracked via a `.gitignore` exception
+- **URL:** `/sizing` (redirected to `/sizing/index.html` in `routes/web.php`)
+- **Link:** a Buttons set in the Practice page Article, managed in the CMS
+- **Updating:** after editing, bump `VERSION` in `sw.js` so returning visitors get the new build
+
+Full documentation: [docs/IndicativeSizing.md](docs/IndicativeSizing.md)
+
+---
 
 ## Acknowledgements
 
