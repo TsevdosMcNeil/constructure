@@ -1,0 +1,307 @@
+{{#
+    @name Projects listing
+    @desc All published projects with client-side (Alpine) filters by taxonomy.
+          Every project is rendered once; the filters only show/hide them, so no
+          server round-trip is needed. Within a taxonomy the selected terms are
+          OR-ed, and across taxonomies they are AND-ed (same as the old Livewire query).
+#}}
+
+<!-- /projects/_listing.antlers.html -->
+
+{{ taxonomies = ['sectors', 'expertises'] }}
+
+{{ collection:projects sort="order" paginate="false" as="projects" }}
+
+<div x-data="projectsInit()">
+
+    {{# Filters #}}
+    <section
+        x-show="!hidefilters"
+        @hide-filters.window="hidefilters = $event.detail"
+        class="fluid-container grid gap-0 md:grid-cols-12 pt-12 md:pt-8">
+
+        {{# w-1/2 w-1/3 w-1/4 #}}
+        {{ wrap_class = "w-1/{{ taxonomies | length }} group" }}
+
+        <div class="md:col-span-3 md:col-start-2" >
+            <div class="w-full flex">
+                {{ foreach:taxonomies }}
+                    {{ partial:layout/filter-list
+                        :wrap_class="wrap_class"
+                        :tax="value"
+                    }}
+                {{ /foreach:taxonomies }}
+            </div>
+        </div>
+
+        <div class="md:col-span-1 pt-2 md:pt-0" >
+            <ul class="flex items-stretch justify-between max-w-[80px]">
+                <li role="button"
+                    tabindex="0"
+                    class="cursor-pointer hover:text-blue"
+                    @click="selected_viewmode = 'grid'"
+                    @keydown.enter.prevent="selected_viewmode = 'grid'"
+                    x-bind:class="selected_viewmode === 'grid' ? 'text-blue' : 'text-primary'"
+                >Grid</li>
+                <li role="button"
+                    tabindex="0"
+                    class="cursor-pointer hover:text-blue"
+                    @click="selected_viewmode = 'list'"
+                    @keydown.enter.prevent="selected_viewmode = 'list'"
+                    x-bind:class="selected_viewmode === 'list' ? 'text-blue' : 'text-primary'"
+                >List</li>
+            </ul>
+        </div>
+    </section>
+
+    {{# Projects #}}
+
+    {{ unless no_results }}
+
+    <section x-show="selected_viewmode === 'grid' && visible.length"
+        class="fluid-container
+            grid md:grid-cols-12
+            gap-0
+            pt-8 pb-8  md:pt-40 md:pb-40
+        "
+    >
+        {{ projects }}
+            {{ num_columns_class = "md:col-span-8 md:py-32"}}
+
+            {{if index == 0}}
+                {{ num_columns_class = "md:col-span-8 md:pb-32"}}
+            {{elseif
+                index%7 == 1
+            }}
+                {{ num_columns_class = "md:col-span-5 md:col-start-1 md:pb-24 
+                lg:col-start-1 lg:col-span-3 "}}
+            {{elseif
+                index%7 == 2
+            }}
+                {{ num_columns_class = "md:col-span-5 md:col-start-8 md:pb-0"}}
+            {{elseif
+                index%7 == 3
+            }}
+                {{ num_columns_class = "md:col-span-5 md:col-start-3 md:pb-24"}}
+            {{elseif
+                index%7 == 4
+            }}
+                {{ num_columns_class = "md:col-span-9 md:col-start-4 md:pt-16"}}
+            {{elseif
+                index%7 == 5
+            }}
+                {{ num_columns_class = "md:col-span-7 md:pt-16"}}
+            {{elseif
+                index%7 == 6
+            }}
+                {{ num_columns_class = "md:col-span-4 md:col-start-9 grid items-end md:pt-16"}}
+            {{/if}}
+
+            {{ grid_caption_floating = false }}
+            {{ if grid_caption_hposition == 'below' }}
+                {{ grid_caption_floating = true }}
+            {{/if}}
+
+            {{ location_title = '' }}
+            {{ if locations }}
+              {{ locations }}
+                  {{ location_title += title + ',' }}
+              {{ /locations }}
+              {{ location_title = '<span>'+ (location_title | substr(0, -1)) + '</span><br/>' }}
+            {{ /if }}
+
+            {{ arquitect_name = '' }}
+
+            {{ grid_caption = '<p><span class="text-blue">'+ title + '</span><br/>'+ location_title +  arquitect_name + '</p>' }}
+
+            <div class="column max-w-none {{ num_columns_class }}"
+                x-show="isVisible('{{ slug }}')"
+            >
+                {{ partial:components/card
+                    card_class="max-w-none"
+                    :card_class="card_class"
+                    :card_file_type="grid_file_type"
+                    :card_image="grid_image"
+                    :card_hover_image="grid_hover_image"
+                    :card_orientation="grid_orientation"
+                    card_size="xl"
+                    :card_embed_video="grid_embed_video"
+                    :card_caption_hposition="grid_caption_hposition"
+                    :card_caption_vposition="grid_caption_vposition"
+                    :card_caption_floating="grid_caption_floating"
+                    :card_link="url"
+                    :card_slug="slug"
+                    :card_caption="grid_caption"
+                }}
+            </div>
+
+        {{ /projects }}
+    </section>
+
+    {{# List view #}}
+    <section x-show="selected_viewmode === 'list' && visible.length"
+        class="fluid-container
+            grid md:grid-cols-12
+            gap-0
+            pt-8 pb-8  md:pt-60 md:pb-40
+        "
+    >
+        <table class="table-auto md:col-span-12 text-left">
+            <thead class="text-blue">
+                <tr class="border-b border-black">
+                    <th class="w-1/3 pb-6">Project</th>
+                    <th class="pb-6 mobile-only:hidden">Location</th>
+                    <!-- <th class="pb-6 mobile-only:hidden">Architect</th> -->
+                    <th class="pb-6 mobile-only:hidden">Sector</th>
+                    <th class="pb-6 mobile-only:hidden">Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ projects }}
+
+                    {{ location_title = '' }}
+                    {{ locations }}
+                        {{ location_title += title + ',' }}
+                    {{ /locations }}
+                    {{ location_title = location_title | substr(0, -1) }}
+
+                    {{ sector_title = '' }}
+                    {{ sectors }}
+                        {{ sector_title += title + ',' }}
+                    {{ /sectors }}
+                    {{ sector_title = sector_title | substr(0, -1) }}
+
+                    {{ row_slug="row_".slug }}
+
+                    {{ partial:projects/row
+                        :row_link="url"
+                        :row_title="title"
+                        :row_broken_title="broken_title"
+                        :row_slug="row_slug"
+                        :row_filter_slug="slug"
+                        :row_location="location_title"
+                        :row_architect="arquitect"
+                        :row_sector="sector_title"
+                        :row_year="project_date"
+                    }}
+
+                {{ /projects }}
+            </tbody>
+        </table>
+    </section>
+
+    {{ /unless }}
+
+    {{# Shown when there are no projects at all, or none match the filters #}}
+    <section x-show="!visible.length"
+        {{ unless no_results }}style="display: none"{{ /unless }}
+        class="fluid-container
+            grid md:grid-cols-12
+            gap-0
+            pt-8 pb-8  md:pt-40 md:pb-40
+        "
+    >
+        <div class="md:col-span-6">
+            {{ trans:strings.no_results }}
+        </div>
+    </section>
+
+    <script>
+        function projectsInit() {
+            return {
+                hidefilters:       false,
+                filter_clicked:    false,
+                selected_viewmode: 'grid',
+
+                // Open/closed state of each filter list, keyed by taxonomy handle
+                expanded: {
+                {{ foreach:taxonomies }}
+                    '{{ value }}': false,
+                {{ /foreach:taxonomies }}
+                },
+
+                // Selected term slugs, keyed by taxonomy handle
+                selected: {
+                {{ foreach:taxonomies }}
+                    '{{ value }}': [],
+                {{ /foreach:taxonomies }}
+                },
+
+                // Every project with its term slugs, in collection order.
+                // Add a line here if a new taxonomy is added to `taxonomies` above.
+                items: [
+                {{ projects }}
+                    {
+                        slug:       '{{ slug }}',
+                        sectors:    [{{ sectors }}'{{ slug }}',{{ /sectors }}],
+                        expertises: [{{ expertises }}'{{ slug }}',{{ /expertises }}],
+                    },
+                {{ /projects }}
+                ],
+
+                init() {
+                    // Restore filters from the URL, e.g. /projects?sectors=residential,education
+                    const params = new URLSearchParams(window.location.search);
+                    Object.keys(this.selected).forEach((tax) => {
+                        const value = params.get(tax);
+                        if (value) {
+                            this.selected[tax] = value.split(',').filter(Boolean);
+                        }
+                    });
+
+                    // Keep the URL in sync so that going back from a project keeps the filters
+                    this.$watch('selected', () => this.update_url());
+                },
+
+                matches(item) {
+                    return Object.keys(this.selected).every((tax) => {
+                        const chosen = this.selected[tax];
+                        return !chosen.length
+                            || (item[tax] || []).some((slug) => chosen.includes(slug));
+                    });
+                },
+
+                get visible() {
+                    return this.items
+                        .filter((item) => this.matches(item))
+                        .map((item) => item.slug);
+                },
+
+                isVisible(slug) {
+                    return this.visible.includes(slug);
+                },
+
+                isSelected(tax, slug) {
+                    return this.selected[tax].includes(slug);
+                },
+
+                toggle_filter(tax, slug) {
+                    this.selected[tax] = this.isSelected(tax, slug)
+                        ? this.selected[tax].filter((item) => item !== slug)
+                        : [...this.selected[tax], slug];
+                },
+
+                clear_filters(tax) {
+                    this.selected[tax] = [];
+                },
+
+                update_url() {
+                    const url = new URL(window.location.href);
+                    Object.keys(this.selected).forEach((tax) => {
+                        if (this.selected[tax].length) {
+                            url.searchParams.set(tax, this.selected[tax].join(','));
+                        } else {
+                            url.searchParams.delete(tax);
+                        }
+                    });
+                    window.history.replaceState(window.history.state, '', url);
+                },
+            }
+        }
+    </script>
+
+</div>
+
+{{ /collection:projects }}
+
+<!-- End: /projects/_listing.antlers.html -->

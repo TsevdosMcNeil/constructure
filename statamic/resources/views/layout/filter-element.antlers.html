@@ -7,18 +7,12 @@
     @param tax             Taxonomy of the filter item
 #}}
 
-<li id="{{ slug }}"
-    class="cursor-pointer hover:text-blue" 
-    x-bind:class="
-    selected_{{ tax }}_slug.includes('{{ slug }}')
-        ? 'text-blue'
-        : 'text-primary'
-    "
-    @click="select_filter(  
-        '{{ slug }}', 
-        '{{ tax }}',
-        selected_{{ tax }}_slug.includes('{{ slug }}')
-            ? 'remove'
-            : 'add'
-    )"
+<li id="filter-{{ tax }}-{{ slug }}"
+    role="button"
+    tabindex="0"
+    class="cursor-pointer hover:text-blue"
+    x-bind:class="isSelected('{{ tax }}', '{{ slug }}') ? 'text-blue' : 'text-primary'"
+    x-bind:aria-pressed="isSelected('{{ tax }}', '{{ slug }}') ? 'true' : 'false'"
+    @click="toggle_filter('{{ tax }}', '{{ slug }}')"
+    @keydown.enter.prevent="toggle_filter('{{ tax }}', '{{ slug }}')"
 >{{ title }}</li>

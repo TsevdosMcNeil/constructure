@@ -1,12 +1,15 @@
 {{#
     @name Projects row
     @desc A row of a project table. 
+    @param row_filter_slug   Optional. Project slug; when set the row is shown/hidden by the
+                             parent Alpine filters (isVisible() in projects/_listing).
 #}}
 
 <!-- /projects/row.antlers.html -->
 <tr id="{{ row_slug }}" 
     x-data="{ shown_row : false }" 
     x-intersect.once="shown_row = true;"
+    {{ if row_filter_slug }}x-show="isVisible('{{ row_filter_slug }}')"{{ /if }}
     class="row  
         group
         border-b border-grey 

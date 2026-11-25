@@ -4,6 +4,9 @@
 #}}
 
 <!-- /projects/index.antlers.html -->
+{{# The filters are plain Alpine now (projects/_listing). The `livewirepage` class and the
+    Livewire assets stay only because site.js starts Alpine through Livewire.start() on
+    pages with that class. #}}
 {{ livewire:styles }}
 <main id="projects"
     class="outer-grid 
@@ -30,7 +33,7 @@
 
 
     {{ section:index_content }}
-        {{ livewire:projects.show-projects }}
+        {{ partial:projects/listing }}
     {{ /section:index_content }}
 
 </main>

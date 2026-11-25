@@ -12,6 +12,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.9.0] - 2026-11-25
+
+### Added
+
+- Projects filters (Sectors and Expertise) now work client-side with Alpine: all projects are loaded once and the filters show/hide them without a server request. Terms in the same taxonomy are combined with OR, and the two taxonomies with AND.
+- The selected filters are kept in the URL (e.g. `/projects?sectors=residential`), so going back from a project keeps them.
+- A "no results" message shows when no project matches the filters.
+
+### Removed
+
+- Livewire `ShowProjects` component and its view (`livewire/projects/show-projects`), replaced by `projects/_listing`.
+
 ## [0.8.5] - 2026-11-25
 
 ### Fixed

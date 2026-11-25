@@ -1,44 +1,45 @@
 
 {{#
-    @name Filter lidt
-    @desc HTML code for the filter list.
+    @name Filter list
+    @desc HTML code for the filter list. Needs a parent Alpine component with
+          `expanded`, `selected`, `filter_clicked`, `clear_filters()`,
+          `toggle_filter()` and `isSelected()` (see projects/_listing).
     @param wrap_class    CSS class for the wrapper div
     @param tax           The taxonomy name
 #}}
 
-<div class="{{ wrap_class}}">
-    <button @click="
-            expanded_{{ tax }} = ! expanded_{{ tax }}; 
+<div class="{{ wrap_class }}">
+    <button type="button"
+        @click="
+            expanded['{{ tax }}'] = ! expanded['{{ tax }}'];
             filter_clicked = true;
         "
+        x-bind:aria-expanded="expanded['{{ tax }}'] ? 'true' : 'false'"
+        aria-controls="filter-{{ tax }}"
         class="text-blue"
     >
         {{ tax | taxonomy_title }}
-    </button>                     
-    <ul id="{{ tax }}" 
-        x-show="expanded_{{ tax }}" 
+    </button>
+    <ul id="filter-{{ tax }}"
+        x-show="expanded['{{ tax }}']"
         x-collapse.duration.750ms
-        x-bind:class="
-        expanded_{{ tax }}
-            ? 'expanded'
-            : ''
-        "
+        x-bind:class="expanded['{{ tax }}'] ? 'expanded' : ''"
         class="expanse list-none"
+        style="display: none"
     >
-        <li id="all"
-            class="cursor-pointer hover:text-blue" 
-            x-bind:class="
-            selected_{{ tax }}_slug.length
-                ? 'text-primary'
-                : 'text-blue'
-            "
+        <li id="filter-{{ tax }}-all"
+            role="button"
+            tabindex="0"
+            class="cursor-pointer hover:text-blue"
+            x-bind:class="selected['{{ tax }}'].length ? 'text-primary' : 'text-blue'"
             @click="clear_filters('{{ tax }}')"
+            @keydown.enter.prevent="clear_filters('{{ tax }}')"
         >All</li>
         {{ taxonomy:{ tax } }}
             {{ partial:layout/filter-element
-                :slug="slug" 
-                :title="title" 
-                :tax="tax" 
+                :slug="slug"
+                :title="title"
+                :tax="tax"
             }}
         {{ /taxonomy:{ tax } }}
     </ul>
