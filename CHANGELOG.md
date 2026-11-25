@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+## [0.10.1] - 2026-11-25
+
+### Added
+ - New `.md` files in `docs/`
+
 ## [0.10.0] - 2026-11-25
 
 ### Added
